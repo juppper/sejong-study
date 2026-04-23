@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세종한국어 1B — Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1714;
+  --paper: #f5f0e8;
+  --paper2: #ede8de;
+  --accent: #c4381c;
+  --accent2: #2a5c45;
+  --gold: #b8860b;
+  --muted: #7a7060;
+  --border: rgba(26,23,20,0.12);
+  --card: #faf6ef;
+  --serif: 'Instrument Serif', serif;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --kr: 'Noto Serif KR', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4rem 3rem 4rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-left::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+}
+
+.hero-right {
+  background: var(--paper);
+  padding: 4rem 4rem 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-kr-big {
+  font-family: var(--kr);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--paper);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-style: italic;
+  color: rgba(245,240,232,0.7);
+  line-height: 1.3;
+  margin-bottom: 2rem;
+}
+
+.hero-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(245,240,232,0.4);
+  line-height: 2;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.stat-box {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  background: var(--card);
+  text-align: center;
+}
+.stat-box .num {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-box .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.hero-desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.cta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 12px 24px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: #a82e14; transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 12px 24px;
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+/* ─── DECORATIVE HANGUL BG ─── */
+.hero-bg-kr {
+  position: absolute;
+  bottom: -2rem;
+  right: -1rem;
+  font-family: var(--kr);
+  font-size: 22rem;
+  font-weight: 700;
+  color: rgba(26,23,20,0.04);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+
+/* ─── PROGRESS TRACKER ─── */
+.tracker-section {
+  background: var(--paper2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 4rem;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::before { content: '—'; color: var(--accent); }
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+
+.xp-bar-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.xp-number {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-style: italic;
+  color: var(--accent2);
+  line-height: 1;
+}
+.xp-sub { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+.bar-wrap { flex: 1; min-width: 200px; }
+.bar-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.bar-track { background: var(--paper2); border: 1px solid var(--border); border-radius: 99px; height: 10px; overflow: hidden; }
+.bar-fill { height: 10px; border-radius: 99px; background: var(--accent2); transition: width 0.6s ease; }
+
+.streak-badge {
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* ─── WEEK CARDS ─── */
+.weeks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.week-card {
+  background: var(--card);
+  padding: 1.5rem;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.week-card:hover { background: #fff; }
+.week-card.active-week { background: #fff; }
+.week-card.active-week::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.week-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.week-title {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.week-units { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 1rem; }
+.week-xp { 
+  font-family: var(--mono); font-size: 12px; 
+  color: var(--accent2); 
+  position: absolute; top: 1.5rem; right: 1.5rem;
+}
+
+.week-days { display: flex; flex-direction: column; gap: 4px; }
+.day-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12px; color: var(--ink); line-height: 1.4;
+}
+.day-label { font-family: var(--mono); font-size: 10px; color: var(--muted); min-width: 20px; padding-top: 1px; }
+.day-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.dot-teal { background: var(--accent2); }
+.dot-blue { background: #2563eb; }
+.dot-amber { background: var(--gold); }
+.dot-pink { background: var(--accent); }
+
+.week-badge {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ─── DAILY LESSON SECTION ─── */
+.lesson-section { padding: 3rem 4rem; }
+
+.lesson-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  border: none;
+  background: var(--paper2);
+  color: var(--muted);
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  transition: background 0.15s, color 0.15s;
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn.active { background: var(--ink); color: var(--paper); }
+.tab-btn:hover:not(.active) { background: var(--paper); }
+
+.lesson-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.lesson-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+.lesson-week-badge {
+  font-family: var(--kr);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.lesson-header-info { flex: 1; }
+.lesson-header-day { font-family: var(--mono); font-size: 11px; color: rgba(245,240,232,0.5); margin-bottom: 4px; letter-spacing: 0.1em; }
+.lesson-header-title { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--paper); line-height: 1.3; }
+.lesson-header-duration { font-family: var(--mono); font-size: 11px; color: rgba(245,240,232,0.4); margin-top: 4px; }
+
+.lesson-body { padding: 2rem; }
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  width: fit-content;
+}
+.step-item {
+  padding: 7px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--paper2);
+  border-right: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.step-item:last-child { border-right: none; }
+.step-item.done { background: var(--accent2); color: #fff; }
+.step-item.current { background: var(--ink); color: var(--paper); }
+.step-item:hover:not(.done):not(.current) { background: var(--paper); }
+
+.step-panel { display: none; }
+.step-panel.visible { display: block; }
+
+/* vocab table */
+.vocab-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+.vocab-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 6px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.vocab-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  vertical-align: middle;
+}
+.vocab-table tr:last-child td { border-bottom: none; }
+.vocab-table tr:hover td { background: var(--paper2); }
+.vocab-kr { font-family: var(--kr); font-size: 16px; font-weight: 700; }
+.irreg { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 99px; background: rgba(184,134,11,0.12); color: var(--gold); margin-left: 6px; }
+.vocab-ex { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* dialogue */
+.dialogue-wrap {
+  background: var(--paper2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.dialogue-title { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 1rem; text-transform: uppercase; }
+.dl { display: flex; gap: 12px; margin-bottom: 10px; }
+.dl-speaker { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--accent); min-width: 16px; padding-top: 2px; }
+.dl-lines { flex: 1; }
+.dl-kr { font-family: var(--kr); font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.5; }
+.dl-en { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* recall cards */
+.recall-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
+.recall-card {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.recall-card:hover { border-color: var(--accent2); }
+.recall-card .rc-prompt { font-family: var(--kr); font-size: 18px; font-weight: 700; color: var(--ink); }
+.recall-card .rc-reveal {
+  font-size: 13px;
+  color: transparent;
+  background: var(--paper2);
+  border-radius: 3px;
+  padding: 2px 6px;
+  width: fit-content;
+  transition: color 0.2s, background 0.2s;
+  margin-top: 8px;
+}
+.recall-card.revealed .rc-reveal { color: var(--muted); background: transparent; }
+.recall-card .rc-hint { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+/* checklist */
+.checklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+.check-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+}
+.check-row:hover { background: var(--paper2); }
+.check-box {
+  width: 18px; height: 18px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.check-row.checked .check-box { background: var(--accent2); border-color: var(--accent2); }
+.check-row.checked .check-box::after {
+  content: '';
+  display: block;
+  width: 10px; height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translate(1px,-1px);
+}
+.check-row.checked { color: var(--muted); text-decoration: line-through; }
+
+.xp-awarded {
+  background: rgba(42,92,69,0.08);
+  border: 1px solid rgba(42,92,69,0.2);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent2);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  display: none;
+}
+.xp-awarded.show { display: block; }
+
+.nav-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+/* ─── GRAMMAR QUICK REF ─── */
+.grammar-section {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 3rem 4rem;
+}
+.grammar-section .section-label { color: rgba(245,240,232,0.4); }
+.grammar-section .section-label::before { color: var(--accent); }
+.grammar-section .section-title { color: var(--paper); }
+
+.grammar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: rgba(245,240,232,0.1); border: 1px solid rgba(245,240,232,0.1); border-radius: 6px; overflow: hidden; }
+.grammar-card { background: rgba(26,23,20,0.6); padding: 1.5rem; transition: background 0.2s; }
+.grammar-card:hover { background: rgba(245,240,232,0.04); }
+.grammar-pattern { font-family: var(--kr); font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.grammar-meaning { font-size: 13px; color: rgba(245,240,232,0.6); margin-bottom: 10px; }
+.grammar-rule { font-family: var(--mono); font-size: 11px; color: rgba(245,240,232,0.4); margin-bottom: 10px; line-height: 1.5; }
+.grammar-ex { font-family: var(--kr); font-size: 13px; color: rgba(245,240,232,0.8); line-height: 1.8; }
+.grammar-ex span { font-size: 11px; font-family: var(--sans); color: rgba(245,240,232,0.4); font-style: italic; display: block; }
+
+/* ─── QUIZ CTA ─── */
+.quiz-section {
+  padding: 3rem 4rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.quiz-left { flex: 1; min-width: 260px; }
+.quiz-left .section-title { margin-bottom: 0.5rem; }
+.quiz-left p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.quiz-right { display: flex; flex-direction: column; gap: 10px; }
+.quiz-unit-btn {
+  padding: 12px 24px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--card);
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.quiz-unit-btn:hover { border-color: var(--accent); color: var(--accent); }
+.quiz-unit-btn .unit-kr { font-family: var(--kr); font-size: 1.1rem; font-weight: 700; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  color: rgba(245,240,232,0.4);
+  padding: 2rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+footer a { color: rgba(245,240,232,0.4); text-decoration: none; }
+footer a:hover { color: var(--paper); }
+
+/* ─── FADE-IN ANIMATION ─── */
+.fade-in { opacity: 0; transform: translateY(16px); animation: fadeUp 0.6s ease forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.15s; }
+.fade-in:nth-child(3) { animation-delay: 0.25s; }
+.fade-in:nth-child(4) { animation-delay: 0.35s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 2.5rem 1.5rem; min-height: 60vh; }
+  .hero-right { padding: 2.5rem 1.5rem; }
+  .hero-left::after { display: none; }
+  .tracker-section, .lesson-section, .grammar-section, .quiz-section { padding: 2rem 1.5rem; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .step-indicator { flex-wrap: wrap; }
+  footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">King Sejong Institute · 1B</div>
+      <div class="hero-kr-big">세종<br>한국어</div>
+      <div class="hero-title">Your 4-week gamified<br>review companion</div>
+    </div>
+    <div class="hero-meta">
+      <div>Units 9–16 · Beginner 2</div>
+      <div>Food · Shopping · Travel · Weather · Hobbies</div>
+      <div>Grammar · Dialogues · Exercises</div>
+    </div>
+    <div class="hero-bg-kr">한</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stats fade-in">
+      <div class="stat-box">
+        <div class="num">8</div>
+        <div class="label">units</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">4</div>
+        <div class="label">weeks</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">1k</div>
+        <div class="label">XP to earn</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">6</div>
+        <div class="label">days/week</div>
+      </div>
+    </div>
+    <p class="hero-desc fade-in">
+      A structured, gamified review plan for the King Sejong 1B workbook.
+      Study vocabulary, grammar patterns, and dialogues for 40–50 minutes a day —
+      earn XP and unlock badges as you go.
+    </p>
+    <div class="cta-row fade-in">
+      <a href="#tracker" class="btn-primary">Start studying →</a>
+      <a href="#grammar" class="btn-outline">Grammar reference</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRESS TRACKER ═══ -->
+<section class="tracker-section" id="tracker">
+  <div class="section-label">Progress tracker</div>
+  <div class="section-title">Your journey so far</div>
+
+  <div class="xp-bar-wrap">
+    <div>
+      <div class="xp-number" id="xp-display">0</div>
+      <div class="xp-sub">XP earned of 1,000</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-label">
+        <span>Overall progress</span>
+        <span id="pct-label">0%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="main-bar" style="width:0%"></div></div>
+    </div>
+    <div class="streak-badge" id="streak-badge">0-day streak</div>
+  </div>
+
+  <div class="weeks-grid">
+    <div class="week-card active-week" onclick="openWeek(1)">
+      <div class="week-num">Week 01</div>
+      <div class="week-xp">+200 XP</div>
+      <div class="week-title">Food, family & abilities</div>
+      <div class="week-units">Units 9–11</div>
+      <div class="week-days">
+        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Food & taste vocab — pronounce all 13 words</span></div>
+        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-blue"></span><span>-고 싶다 pattern + 무슨 N — write 5 sentences</span></div>
+        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-amber"></span><span>Dialogue 6 (요리하는 것) — swap roles 3×</span></div>
+        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-teal"></span><span>Vocab speed recall + family vocab (높임말)</span></div>
+        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-blue"></span><span>-(으)ㄹ 수 있다/없다 — conjugation table rows</span></div>
+        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>Exercise B items 1–3 + mini can/can't dialogue</span></div>
+      </div>
+      <div class="week-badge">★ Unlock: Chef badge</div>
+    </div>
+
+    <div class="week-card" onclick="openWeek(2)">
+      <div class="week-num">Week 02</div>
+      <div class="week-xp">+200 XP</div>
+      <div class="week-title">Shopping & directions</div>
+      <div class="week-units">Units 12–13</div>
+      <div class="week-days">
+        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Shopping vocab — self-quiz both directions</span></div>
+        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-blue"></span><span>-아/어 주세요 + -(으)ㄴ N — 5 shopping sentences</span></div>
+        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-teal"></span><span>Location & transport vocab + example sentences</span></div>
+        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-blue"></span><span>N에서 N까지 — map a route in Korean</span></div>
+        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-amber"></span><span>Dialogue 2 (우산) — improvise a new shopping scene</span></div>
+        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>Exercise C + translate Exercise E items 1–2</span></div>
+      </div>
+      <div class="week-badge">★ Unlock: Navigator badge</div>
+    </div>
+
+    <div class="week-card" onclick="openWeek(3)">
+      <div class="week-num">Week 03</div>
+      <div class="week-xp">+250 XP</div>
+      <div class="week-title">Travel plans & weather</div>
+      <div class="week-units">Units 14–15–16</div>
+      <div class="week-days">
+        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Travel + weather vocab — full cover-and-recall drill</span></div>
+        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-blue"></span><span>-(으)려고 하다 + -고 + -아/어서 — conjugation chart</span></div>
+        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-amber"></span><span>Dialogues 1 & 3 (날씨) — substitute your city</span></div>
+        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-blue"></span><span>-(으)니까 vs -아/어서 — write 4 contrast sentences</span></div>
+        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-teal"></span><span>ㅂ 불규칙 & ㅡ 탈락 irregular drills — all examples</span></div>
+        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>Exercise E full translation (6 sentences) + answer key</span></div>
+      </div>
+      <div class="week-badge">★ Unlock: Traveller badge</div>
+    </div>
+
+    <div class="week-card" onclick="openWeek(4)">
+      <div class="week-num">Week 04</div>
+      <div class="week-xp">+350 XP</div>
+      <div class="week-title">Hobbies + full review</div>
+      <div class="week-units">Units 9–16 Boss Week</div>
+      <div class="week-days">
+        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Hobbies vocab — -는 것을 좋아하다 per hobby</span></div>
+        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-amber"></span><span>Dialogues 4 & 5 (취미) — speak & improvise</span></div>
+        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-blue"></span><span>ㄷ 불규칙 & 르 불규칙 — full conjugation drill</span></div>
+        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-pink"></span><span>Exercise D full dialogue — write your own version</span></div>
+        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-pink"></span><span>Exercise F — 5–7 sentences, 3+ grammar patterns</span></div>
+        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>BOSS: 10-min spoken monologue, all 8 themes</span></div>
+      </div>
+      <div class="week-badge">★ Unlock: King Sejong 1B Master badge</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DAILY LESSON ═══ -->
+<section class="lesson-section" id="lesson">
+  <div class="section-label">Daily lesson</div>
+  <div class="section-title">Week 1, Monday — food vocabulary</div>
+
+  <div class="lesson-tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'step-learn')">1 · learn</button>
+    <button class="tab-btn" onclick="switchTab(this,'step-speak')">2 · speak</button>
+    <button class="tab-btn" onclick="switchTab(this,'step-recall')">3 · recall</button>
+    <button class="tab-btn" onclick="switchTab(this,'step-done')">4 · complete</button>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-week-badge">월</div>
+      <div class="lesson-header-info">
+        <div class="lesson-header-day">Week 1 · Monday · Unit 9</div>
+        <div class="lesson-header-title">Food & taste — 음식과 맛</div>
+        <div class="lesson-header-duration">Estimated time: 15 min</div>
+      </div>
+    </div>
+    <div class="lesson-body">
+
+      <!-- STEP 1: LEARN -->
+      <div class="step-panel visible" id="step-learn">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Read each word aloud. Words marked <span class="irreg">irreg</span> have special conjugation — notice them now, they reappear in Tuesday's grammar session.</p>
+        <table class="vocab-table">
+          <thead><tr><th>Korean</th><th>English</th><th>Example sentence</th></tr></thead>
+          <tbody>
+            <tr><td><span class="vocab-kr">비빔밥</span></td><td>bibimbap</td><td><span class="vocab-ex">저는 비빔밥을 먹고 싶어요.</span></td></tr>
+            <tr><td><span class="vocab-kr">불고기</span></td><td>bulgogi</td><td><span class="vocab-ex">불고기가 정말 맛있어요.</span></td></tr>
+            <tr><td><span class="vocab-kr">닭갈비</span></td><td>spicy stir-fried chicken</td><td><span class="vocab-ex">오늘 저녁에 닭갈비를 먹으려고 해요.</span></td></tr>
+            <tr><td><span class="vocab-kr">김치찌개</span></td><td>kimchi stew</td><td><span class="vocab-ex">김치찌개 맛은 어때요?</span></td></tr>
+            <tr><td><span class="vocab-kr">냉면</span></td><td>cold noodles</td><td><span class="vocab-ex">여름에는 냉면이 시원해요.</span></td></tr>
+            <tr><td><span class="vocab-kr">삼겹살</span></td><td>pork belly</td><td><span class="vocab-ex">친구하고 삼겹살을 먹어요.</span></td></tr>
+            <tr><td><span class="vocab-kr">매운맛<span class="irreg">ㅂ</span></span></td><td>spicy taste</td><td><span class="vocab-ex">이 음식은 너무 매워요.</span></td></tr>
+            <tr><td><span class="vocab-kr">단맛</span></td><td>sweet taste</td><td><span class="vocab-ex">이 케이크는 정말 달아요.</span></td></tr>
+            <tr><td><span class="vocab-kr">짠맛</span></td><td>salty taste</td><td><span class="vocab-ex">국이 조금 짜요.</span></td></tr>
+            <tr><td><span class="vocab-kr">싱겁다<span class="irreg">ㅂ</span></span></td><td>bland / tasteless</td><td><span class="vocab-ex">국이 싱거워요.</span></td></tr>
+            <tr><td><span class="vocab-kr">시키다</span></td><td>to order (food)</td><td><span class="vocab-ex">뭘 시킬까요?</span></td></tr>
+            <tr><td><span class="vocab-kr">배고프다<span class="irreg">ㅡ</span></span></td><td>to be hungry</td><td><span class="vocab-ex">배고파요. 밥 먹어요.</span></td></tr>
+            <tr><td><span class="vocab-kr">배부르다<span class="irreg">ㅡ</span></span></td><td>to be full</td><td><span class="vocab-ex">많이 먹어서 배불러요.</span></td></tr>
+          </tbody>
+        </table>
+        <div class="nav-row">
+          <span></span>
+          <button class="btn-primary" onclick="advanceStep('step-speak',1)">Read them all — next step →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: SPEAK -->
+      <div class="step-panel" id="step-speak">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Read this dialogue aloud twice — once slowly, once at natural speed. Then swap roles and try person B's lines from memory.</p>
+        <div class="dialogue-wrap">
+          <div class="dialogue-title">음식 주문 — ordering food</div>
+          <div class="dl"><span class="dl-speaker">A</span><div class="dl-lines"><div class="dl-kr">어서 오세요. 뭘 시킬까요?</div><div class="dl-en">Welcome. What shall we order?</div></div></div>
+          <div class="dl"><span class="dl-speaker">B</span><div class="dl-lines"><div class="dl-kr">저는 비빔밥을 먹고 싶어요. 김치찌개도 시킬까요?</div><div class="dl-en">I want bibimbap. Shall we also order kimchi stew?</div></div></div>
+          <div class="dl"><span class="dl-speaker">A</span><div class="dl-lines"><div class="dl-kr">좋아요. 그런데 김치찌개가 매워요?</div><div class="dl-en">Sure. But is the kimchi stew spicy?</div></div></div>
+          <div class="dl"><span class="dl-speaker">B</span><div class="dl-lines"><div class="dl-kr">네, 조금 매워요. 그리고 좀 짜요. 괜찮아요?</div><div class="dl-en">Yes, a little spicy. And a bit salty. Is that okay?</div></div></div>
+          <div class="dl"><span class="dl-speaker">A</span><div class="dl-lines"><div class="dl-kr">네, 괜찮아요. 저는 매운 음식을 좋아해요!</div><div class="dl-en">Yes, that's fine. I love spicy food!</div></div></div>
+        </div>
+        <div class="nav-row">
+          <button class="btn-outline" onclick="advanceStep('step-learn',0)">← back</button>
+          <button class="btn-primary" onclick="advanceStep('step-recall',2)">Done — cover & recall →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: RECALL -->
+      <div class="step-panel" id="step-recall">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;">Say the answer aloud before tapping each card to reveal it.</p>
+        <div class="recall-grid" id="recall-grid"></div>
+        <div class="nav-row">
+          <button class="btn-outline" onclick="advanceStep('step-speak',1)">← back</button>
+          <button class="btn-primary" onclick="advanceStep('step-done',3)">I'm done — finish →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: COMPLETE -->
+      <div class="step-panel" id="step-done">
+        <div class="xp-awarded show">+ 20 XP — Week 1 Monday complete! 화이팅!</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Tick off each item before you close the lesson.</p>
+        <div class="checklist" id="checklist"></div>
+        <div class="nav-row">
+          <button class="btn-outline" onclick="advanceStep('step-recall',2)">← back</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GRAMMAR QUICK REFERENCE ═══ -->
+<section class="grammar-section" id="grammar">
+  <div class="section-label">Grammar reference</div>
+  <div class="section-title" style="color:var(--paper);">Core patterns — units 9–16</div>
+
+  <div class="grammar-grid">
+    <div class="grammar-card">
+      <div class="grammar-pattern">-고 싶다</div>
+      <div class="grammar-meaning">I want to V</div>
+      <div class="grammar-rule">Attach to verb stem. 1st/2nd person only.<br>3rd person → -고 싶어하다</div>
+      <div class="grammar-ex">저는 비빔밥을 먹고 싶어요.<span>I want to eat bibimbap.</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">-(으)ㄹ 수 있다/없다</div>
+      <div class="grammar-meaning">can / cannot V</div>
+      <div class="grammar-rule">Consonant stem → -을 수 있다<br>Vowel stem → -ㄹ 수 있다</div>
+      <div class="grammar-ex">기타를 칠 수 있어요.<span>I can play guitar.</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">-(으)려고 하다</div>
+      <div class="grammar-meaning">plan / intend to V</div>
+      <div class="grammar-rule">Consonant stem → -으려고 하다<br>Vowel stem → -려고 하다</div>
+      <div class="grammar-ex">제주도에 가려고 해요.<span>I'm planning to go to Jeju.</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">-아/어서</div>
+      <div class="grammar-meaning">because / and then</div>
+      <div class="grammar-rule">-아서 after ㅏ/ㅗ, -어서 elsewhere<br>하다 → 해서. No independent tense.</div>
+      <div class="grammar-ex">날씨가 좋아서 공원에 가요.<span>The weather's nice so I'm going to the park.</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">-(으)니까</div>
+      <div class="grammar-meaning">because / since</div>
+      <div class="grammar-rule">After consonant → -으니까<br>After vowel → -니까<br>Preferred with commands & proposals</div>
+      <div class="grammar-ex">비가 오니까 우산을 가지고 가세요.<span>It's raining so take an umbrella.</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">-는 것을 좋아하다</div>
+      <div class="grammar-meaning">to like V-ing</div>
+      <div class="grammar-rule">Attach -는 것 to verb stem → noun<br>Then add 을/를 좋아하다</div>
+      <div class="grammar-ex">저는 요리하는 것을 좋아해요.<span>I like cooking.</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">ㅂ 불규칙</div>
+      <div class="grammar-meaning">ㅂ irregular verbs</div>
+      <div class="grammar-rule">ㅂ → 우 before vowel endings<br>(+어요 → 워요)</div>
+      <div class="grammar-ex">덥다 → 더워요 · 춥다 → 추워요<span>hot → is hot · cold → is cold</span></div>
+    </div>
+    <div class="grammar-card">
+      <div class="grammar-pattern">르 불규칙</div>
+      <div class="grammar-meaning">르 irregular verbs</div>
+      <div class="grammar-rule">Drop ㅡ, double the ㄹ<br>before -아/어</div>
+      <div class="grammar-ex">부르다 → 불러요 · 모르다 → 몰라요<span>to sing → sings · to not know → doesn't know</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUIZ CTA ═══ -->
+<section class="quiz-section">
+  <div class="quiz-left">
+    <div class="section-label">Vocabulary quiz</div>
+    <div class="section-title">Test your knowledge</div>
+    <p>20-question multiple-choice quizzes drawn from the workbook's vocabulary lists. Tracks correct/wrong and shows a missed-word review at the end.</p>
+  </div>
+  <div class="quiz-right">
+    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
+      <span class="unit-kr">9·10</span>
+      <span>Food & family — units 9–10</span>
+    </div>
+    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
+      <span class="unit-kr">11·12</span>
+      <span>Abilities & shopping — units 11–12</span>
+    </div>
+    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
+      <span class="unit-kr">13·14</span>
+      <span>Location & transport — units 13–14</span>
+    </div>
+    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
+      <span class="unit-kr">15·16</span>
+      <span>Travel & weather — units 15–16</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div>세종한국어 1B · Recap Workbook · Units 9–16</div>
+  <div>Based on King Sejong Institute materials · <a href="https://www.sejonghakdang.org" target="_blank">sejonghakdang.org</a></div>
+</footer>
+
+<script>
+const recallData = [
+  {prompt:"비빔밥", reveal:"bibimbap"},
+  {prompt:"to be hungry", reveal:"배고프다"},
+  {prompt:"김치찌개", reveal:"kimchi stew"},
+  {prompt:"bland / tasteless", reveal:"싱겁다"},
+  {prompt:"삼겹살", reveal:"pork belly"},
+  {prompt:"to order food", reveal:"시키다"},
+  {prompt:"냉면", reveal:"cold noodles"},
+  {prompt:"to be full", reveal:"배부르다"},
+  {prompt:"spicy taste", reveal:"매운맛"},
+  {prompt:"불고기", reveal:"bulgogi"},
+  {prompt:"sweet taste", reveal:"단맛"},
+  {prompt:"닭갈비", reveal:"spicy stir-fried chicken"},
+  {prompt:"salty taste", reveal:"짠맛"},
+];
+
+const checkItems = [
+  "I can read all 13 words aloud without hesitation",
+  "I know which words have irregular conjugation",
+  "I read the dialogue aloud twice (both roles)",
+  "I recalled at least 10 of 13 hidden answers",
+  "I used 배고파요 and 배불러요 in my own sentences",
+];
+
+function buildRecall() {
+  const grid = document.getElementById('recall-grid');
+  if (grid.children.length > 0) return;
+  recallData.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'recall-card';
+    el.innerHTML = `<div class="rc-prompt">${d.prompt}</div><div class="rc-reveal">${d.reveal}</div><div class="rc-hint">tap to reveal</div>`;
+    el.onclick = () => {
+      el.classList.toggle('revealed');
+      el.querySelector('.rc-hint').textContent = el.classList.contains('revealed') ? 'tap to hide' : 'tap to reveal';
+    };
+    grid.appendChild(el);
+  });
+}
+
+function buildChecklist() {
+  const cl = document.getElementById('checklist');
+  if (cl.children.length > 0) return;
+  checkItems.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'check-row';
+    el.innerHTML = `<div class="check-box"></div><span>${t}</span>`;
+    el.onclick = () => { el.classList.toggle('checked'); saveProgress(); };
+    cl.appendChild(el);
+  });
+}
+
+let currentStep = 0;
+const stepIds = ['step-learn', 'step-speak', 'step-recall', 'step-done'];
+const tabs = document.querySelectorAll('.tab-btn');
+
+function advanceStep(panelId, idx) {
+  stepIds.forEach(id => { document.getElementById(id).className = 'step-panel'; });
+  document.getElementById(panelId).className = 'step-panel visible';
+  tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+  currentStep = idx;
+  if (panelId === 'step-recall') buildRecall();
+  if (panelId === 'step-done') { buildChecklist(); saveProgress(); }
+  document.getElementById('lesson').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function switchTab(btn, panelId) {
+  const idx = Array.from(tabs).indexOf(btn);
+  advanceStep(panelId, idx);
+}
+
+function openWeek(n) {
+  document.querySelectorAll('.week-card').forEach((c, i) => {
+    c.classList.toggle('active-week', i === n - 1);
+  });
+}
+
+// ─── LOCAL STORAGE PROGRESS ───
+function saveProgress() {
+  const xp = parseInt(localStorage.getItem('sejong_xp') || '0');
+  const streak = parseInt(localStorage.getItem('sejong_streak') || '0');
+  updateXP(xp, streak);
+}
+
+function updateXP(xp, streak) {
+  document.getElementById('xp-display').textContent = xp;
+  document.getElementById('pct-label').textContent = Math.round(xp / 10) + '%';
+  document.getElementById('main-bar').style.width = Math.min(xp / 10, 100) + '%';
+  document.getElementById('streak-badge').textContent = streak + '-day streak';
+}
+
+function loadProgress() {
+  const xp = parseInt(localStorage.getItem('sejong_xp') || '0');
+  const streak = parseInt(localStorage.getItem('sejong_streak') || '0');
+  updateXP(xp, streak);
+}
+
+// XP award on lesson complete (once per day)
+function awardXP() {
+  const today = new Date().toDateString();
+  const last = localStorage.getItem('sejong_last_day');
+  let xp = parseInt(localStorage.getItem('sejong_xp') || '0');
+  let streak = parseInt(localStorage.getItem('sejong_streak') || '0');
+  if (last !== today) {
+    xp = Math.min(xp + 20, 1000);
+    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+    streak = last === yesterday.toDateString() ? streak + 1 : 1;
+    localStorage.setItem('sejong_xp', xp);
+    localStorage.setItem('sejong_streak', streak);
+    localStorage.setItem('sejong_last_day', today);
+    updateXP(xp, streak);
+  }
+}
+
+document.getElementById('step-done') && document.getElementById('step-done').addEventListener('DOMSubtreeModified', function once() {
+  awardXP();
+  this.removeEventListener('DOMSubtreeModified', once);
+});
+
+loadProgress();
+</script>
+</body>
+</html>
