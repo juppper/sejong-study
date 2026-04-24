@@ -22,634 +22,195 @@
   --sans: 'DM Sans', sans-serif;
   --kr: 'Noto Serif KR', serif;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.5}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{background:var(--ink);color:var(--paper);padding:4rem 3rem 4rem 4rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2}
+.hero-left::after{content:'';position:absolute;right:-1px;top:0;bottom:0;width:3px;background:var(--accent)}
+.hero-right{background:var(--paper);padding:4rem 4rem 4rem 3rem;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+.hero-kr-big{font-family:var(--kr);font-size:clamp(3rem,6vw,6rem);font-weight:700;line-height:1.05;color:var(--paper);margin-bottom:1.5rem;letter-spacing:-0.02em}
+.hero-title{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-style:italic;color:rgba(245,240,232,0.7);line-height:1.3;margin-bottom:2rem}
+.hero-meta{font-family:var(--mono);font-size:12px;color:rgba(245,240,232,0.4);line-height:2}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3rem}
+.stat-box{border:1px solid var(--border);border-radius:4px;padding:1rem;background:var(--card);text-align:center}
+.stat-box .num{font-family:var(--serif);font-size:2.2rem;font-style:italic;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat-box .label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase}
+.hero-desc{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:2rem}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+.hero-bg-kr{position:absolute;bottom:-2rem;right:-1rem;font-family:var(--kr);font-size:22rem;font-weight:700;color:rgba(26,23,20,0.04);line-height:1;pointer-events:none;z-index:1;user-select:none}
 
-html { scroll-behavior: smooth; }
+/* BUTTONS */
+.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:3px;padding:12px 24px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.15s}
+.btn-primary:hover{background:#a82e14;transform:translateY(-1px)}
+.btn-green{background:var(--accent2);color:#fff;border:none;border-radius:3px;padding:12px 24px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.btn-green:hover{background:#1e4433;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:3px;padding:12px 24px;font-family:var(--sans);font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color 0.2s,transform 0.15s}
+.btn-outline:hover{border-color:var(--ink);transform:translateY(-1px)}
 
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+/* LABELS */
+.section-label{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'—';color:var(--accent)}
+.section-title{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--ink);margin-bottom:1.5rem}
 
-/* ─── NOISE TEXTURE OVERLAY ─── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.5;
-}
+/* TRACKER */
+.tracker-section{background:var(--paper2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 4rem}
+.xp-bar-wrap{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-bottom:1.5rem;display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+.xp-number{font-family:var(--serif);font-size:3rem;font-style:italic;color:var(--accent2);line-height:1}
+.xp-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+.bar-wrap{flex:1;min-width:200px}
+.bar-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.bar-track{background:var(--paper2);border:1px solid var(--border);border-radius:99px;height:10px;overflow:hidden}
+.bar-fill{height:10px;border-radius:99px;background:var(--accent2);transition:width 0.6s ease}
+.streak-badge{font-family:var(--mono);font-size:13px;padding:6px 14px;border-radius:99px;border:1px solid var(--gold);color:var(--gold);white-space:nowrap}
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
-  overflow: hidden;
-}
+/* DAY SWITCHER */
+.day-switcher{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.day-switcher-label{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;flex-shrink:0}
+.day-switcher-info{flex:1;min-width:140px}
+.day-switcher-info strong{font-weight:500;font-size:14px}
+.day-status{font-size:12px;color:var(--muted);margin-left:8px}
+.day-switcher-btns{display:flex;gap:6px;flex-wrap:wrap}
+.sw-btn{background:transparent;border:1px solid var(--border);border-radius:3px;padding:6px 12px;font-family:var(--sans);font-size:12px;color:var(--muted);cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.sw-btn:hover{border-color:var(--ink);color:var(--ink)}
+.sw-btn.done{border-color:var(--accent2);color:var(--accent2)}
+.sw-btn.done:hover{background:var(--accent2);color:#fff}
+.sw-btn.undo{border-color:var(--muted)}
+.sw-btn.danger{color:var(--accent);border-color:rgba(196,56,28,0.3)}
+.sw-btn.danger:hover{background:var(--accent);color:#fff}
 
-.hero-left {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 4rem 3rem 4rem 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  z-index: 2;
-}
+/* WEEK TABS */
+.week-tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1px;width:fit-content}
+.week-tab{padding:8px 22px;font-family:var(--mono);font-size:12px;border:none;background:var(--paper2);color:var(--muted);cursor:pointer;border-right:1px solid var(--border);transition:all 0.15s}
+.week-tab:last-child{border-right:none}
+.week-tab.active{background:var(--ink);color:var(--paper)}
+.week-tab:hover:not(.active){background:var(--paper)}
 
-.hero-left::after {
-  content: '';
-  position: absolute;
-  right: -1px;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--accent);
-}
+/* DAY GRID */
+.day-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:2rem}
+.day-cell{background:var(--card);padding:1rem;cursor:pointer;transition:background 0.15s;position:relative;min-height:110px}
+.day-cell:hover{background:#fff}
+.day-cell.is-current{background:#fff;outline:2px solid var(--accent);outline-offset:-2px;z-index:2}
+.day-cell.is-done{background:#eef5f0}
+.day-cell.is-done::after{content:'✓';position:absolute;top:8px;right:8px;font-size:11px;color:var(--accent2);font-weight:700;font-family:var(--mono)}
+.day-cell .dc-day{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.day-cell .dc-dot{width:7px;height:7px;border-radius:50%;margin-bottom:6px}
+.day-cell .dc-task{font-size:11px;color:var(--ink);line-height:1.4}
+.day-cell .dc-xp{font-family:var(--mono);font-size:10px;color:var(--accent2);margin-top:6px}
+.day-cell.is-current .dc-day{color:var(--accent)}
+.dc-curr-tag{position:absolute;bottom:6px;left:8px;font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:0.05em}
+.dot-teal{background:var(--accent2)}.dot-blue{background:#2563eb}.dot-amber{background:var(--gold)}.dot-pink{background:var(--accent)}
 
-.hero-right {
-  background: var(--paper);
-  padding: 4rem 4rem 4rem 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 2;
-}
+/* LESSON */
+.lesson-section{padding:3rem 4rem}
+.lesson-tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.5rem;width:fit-content;flex-wrap:wrap}
+.tab-btn{padding:8px 18px;font-family:var(--mono);font-size:12px;border:none;background:var(--paper2);color:var(--muted);cursor:pointer;border-right:1px solid var(--border);transition:all 0.15s}
+.tab-btn:last-child{border-right:none}
+.tab-btn.active{background:var(--ink);color:var(--paper)}
+.tab-btn:hover:not(.active){background:var(--paper)}
+.lesson-card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.lesson-header{background:var(--ink);color:var(--paper);padding:1.5rem 2rem;display:flex;align-items:flex-start;gap:1.5rem}
+.lh-badge{font-family:var(--kr);font-size:2.5rem;font-weight:700;color:var(--accent);line-height:1;flex-shrink:0}
+.lh-day{font-family:var(--mono);font-size:11px;color:rgba(245,240,232,0.5);margin-bottom:4px;letter-spacing:0.1em}
+.lh-title{font-family:var(--serif);font-size:1.4rem;font-style:italic;color:var(--paper);line-height:1.3}
+.lh-dur{font-family:var(--mono);font-size:11px;color:rgba(245,240,232,0.4);margin-top:4px}
+.lesson-body{padding:2rem}
+.step-panel{display:none}.step-panel.visible{display:block}
 
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
+/* VOCAB */
+.vocab-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem}
+.vocab-table th{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:6px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+.vocab-table tr:last-child td{border-bottom:none}
+.vocab-table tr:hover td{background:var(--paper2)}
+.vkr{font-family:var(--kr);font-size:16px;font-weight:700}
+.irreg{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(184,134,11,0.12);color:var(--gold);margin-left:6px}
+.vex{font-size:12px;color:var(--muted);font-style:italic}
 
-.hero-kr-big {
-  font-family: var(--kr);
-  font-size: clamp(3rem, 6vw, 6rem);
-  font-weight: 700;
-  line-height: 1.05;
-  color: var(--paper);
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-}
+/* DIALOGUE */
+.dial-wrap{background:var(--paper2);border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-bottom:1.5rem}
+.dial-title{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;text-transform:uppercase}
+.dl{display:flex;gap:12px;margin-bottom:10px}
+.dl-spk{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--accent);min-width:16px;padding-top:2px}
+.dl-kr{font-family:var(--kr);font-size:15px;color:var(--ink);line-height:1.5}
+.dl-en{font-size:12px;color:var(--muted);margin-top:2px}
 
-.hero-title {
-  font-family: var(--serif);
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-style: italic;
-  color: rgba(245,240,232,0.7);
-  line-height: 1.3;
-  margin-bottom: 2rem;
-}
+/* RECALL */
+.recall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:1.5rem}
+.rc{border:1px solid var(--border);border-radius:4px;padding:1rem;cursor:pointer;transition:border-color 0.15s;min-height:76px;display:flex;flex-direction:column;justify-content:space-between}
+.rc:hover{border-color:var(--accent2)}
+.rc .rcp{font-family:var(--kr);font-size:17px;font-weight:700;color:var(--ink)}
+.rc .rcr{font-size:13px;color:transparent;background:var(--paper2);border-radius:3px;padding:2px 6px;width:fit-content;transition:color 0.2s,background 0.2s;margin-top:6px}
+.rc.revealed .rcr{color:var(--muted);background:transparent}
+.rc .rch{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px}
 
-.hero-meta {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: rgba(245,240,232,0.4);
-  line-height: 2;
-}
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
+.ck{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:background 0.15s;font-size:14px}
+.ck:hover{background:var(--paper2)}
+.ck-box{width:18px;height:18px;border:1px solid var(--border);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.ck.checked .ck-box{background:var(--accent2);border-color:var(--accent2)}
+.ck.checked .ck-box::after{content:'';display:block;width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.ck.checked{color:var(--muted);text-decoration:line-through}
+.xp-toast-bar{border-radius:4px;padding:12px 16px;font-family:var(--mono);font-size:13px;text-align:center;margin-bottom:1.5rem}
+.xp-toast-bar.pending{background:rgba(184,134,11,0.08);border:1px solid rgba(184,134,11,0.2);color:var(--gold)}
+.xp-toast-bar.done{background:rgba(42,92,69,0.08);border:1px solid rgba(42,92,69,0.2);color:var(--accent2)}
+.nav-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:1rem}
 
-.hero-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
+/* GRAMMAR */
+.grammar-section{background:var(--ink);color:var(--paper);padding:3rem 4rem}
+.grammar-section .section-label{color:rgba(245,240,232,0.4)}
+.grammar-section .section-label::before{color:var(--accent)}
+.grammar-section .section-title{color:var(--paper)}
+.grammar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(245,240,232,0.1);border:1px solid rgba(245,240,232,0.1);border-radius:6px;overflow:hidden}
+.grammar-card{background:rgba(26,23,20,0.6);padding:1.5rem;transition:background 0.2s}
+.grammar-card:hover{background:rgba(245,240,232,0.04)}
+.gram-pat{font-family:var(--kr);font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:6px}
+.gram-mean{font-size:13px;color:rgba(245,240,232,0.6);margin-bottom:10px}
+.gram-rule{font-family:var(--mono);font-size:11px;color:rgba(245,240,232,0.4);margin-bottom:10px;line-height:1.5}
+.gram-ex{font-family:var(--kr);font-size:13px;color:rgba(245,240,232,0.8);line-height:1.8}
+.gram-ex span{font-size:11px;font-family:var(--sans);color:rgba(245,240,232,0.4);font-style:italic;display:block}
 
-.stat-box {
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1rem;
-  background: var(--card);
-  text-align: center;
-}
-.stat-box .num {
-  font-family: var(--serif);
-  font-size: 2.2rem;
-  font-style: italic;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.stat-box .label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
+/* QUIZ */
+.quiz-section{padding:3rem 4rem;display:flex;align-items:center;gap:3rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.quiz-left{flex:1;min-width:260px}
+.quiz-left p{font-size:14px;color:var(--muted);line-height:1.7}
+.quiz-right{display:flex;flex-direction:column;gap:10px}
+.qub{padding:12px 24px;border:1px solid var(--border);border-radius:3px;background:var(--card);font-family:var(--sans);font-size:14px;color:var(--ink);cursor:pointer;text-align:left;transition:all 0.15s;display:flex;align-items:center;gap:10px}
+.qub:hover{border-color:var(--accent);color:var(--accent)}
+.qub .ukr{font-family:var(--kr);font-size:1.1rem;font-weight:700}
 
-.hero-desc {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 2rem;
-}
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:13px;padding:12px 20px;border-radius:4px;border-left:3px solid var(--accent2);z-index:9999;transform:translateY(80px);opacity:0;transition:all 0.3s;max-width:340px;line-height:1.5}
+.toast.show{transform:translateY(0);opacity:1}
 
-.cta-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+/* FOOTER */
+footer{background:var(--ink);color:rgba(245,240,232,0.4);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-family:var(--mono);font-size:11px}
+footer a{color:rgba(245,240,232,0.4);text-decoration:none}
+footer a:hover{color:var(--paper)}
 
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  padding: 12px 24px;
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.2s, transform 0.15s;
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:2.5rem 1.5rem;min-height:60vh}
+  .hero-right{padding:2.5rem 1.5rem}
+  .hero-left::after{display:none}
+  .tracker-section,.lesson-section,.grammar-section,.quiz-section{padding:2rem 1.5rem}
+  .day-grid{grid-template-columns:repeat(3,1fr)}
+  .week-tabs{width:100%}
+  .week-tab{flex:1;text-align:center;font-size:11px;padding:8px 6px}
+  footer{padding:1.5rem;flex-direction:column;text-align:center}
 }
-.btn-primary:hover { background: #a82e14; transform: translateY(-1px); }
-
-.btn-outline {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 12px 24px;
-  font-family: var(--sans);
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: border-color 0.2s, transform 0.15s;
-}
-.btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
-
-/* ─── DECORATIVE HANGUL BG ─── */
-.hero-bg-kr {
-  position: absolute;
-  bottom: -2rem;
-  right: -1rem;
-  font-family: var(--kr);
-  font-size: 22rem;
-  font-weight: 700;
-  color: rgba(26,23,20,0.04);
-  line-height: 1;
-  pointer-events: none;
-  z-index: 1;
-  user-select: none;
-}
-
-/* ─── PROGRESS TRACKER ─── */
-.tracker-section {
-  background: var(--paper2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 3rem 4rem;
-}
-
-.section-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-label::before { content: '—'; color: var(--accent); }
-
-.section-title {
-  font-family: var(--serif);
-  font-size: 2rem;
-  font-style: italic;
-  color: var(--ink);
-  margin-bottom: 2rem;
-}
-
-.xp-bar-wrap {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.xp-number {
-  font-family: var(--serif);
-  font-size: 3rem;
-  font-style: italic;
-  color: var(--accent2);
-  line-height: 1;
-}
-.xp-sub { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
-
-.bar-wrap { flex: 1; min-width: 200px; }
-.bar-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
-.bar-track { background: var(--paper2); border: 1px solid var(--border); border-radius: 99px; height: 10px; overflow: hidden; }
-.bar-fill { height: 10px; border-radius: 99px; background: var(--accent2); transition: width 0.6s ease; }
-
-.streak-badge {
-  font-family: var(--mono);
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 99px;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  white-space: nowrap;
-}
-
-/* ─── WEEK CARDS ─── */
-.weeks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-  background: var(--border);
-}
-
-.week-card {
-  background: var(--card);
-  padding: 1.5rem;
-  position: relative;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.week-card:hover { background: #fff; }
-.week-card.active-week { background: #fff; }
-.week-card.active-week::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-}
-
-.week-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.week-title {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--ink);
-  margin-bottom: 4px;
-  line-height: 1.3;
-}
-.week-units { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 1rem; }
-.week-xp { 
-  font-family: var(--mono); font-size: 12px; 
-  color: var(--accent2); 
-  position: absolute; top: 1.5rem; right: 1.5rem;
-}
-
-.week-days { display: flex; flex-direction: column; gap: 4px; }
-.day-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  font-size: 12px; color: var(--ink); line-height: 1.4;
-}
-.day-label { font-family: var(--mono); font-size: 10px; color: var(--muted); min-width: 20px; padding-top: 1px; }
-.day-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-.dot-teal { background: var(--accent2); }
-.dot-blue { background: #2563eb; }
-.dot-amber { background: var(--gold); }
-.dot-pink { background: var(--accent); }
-
-.week-badge {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
-  font-size: 11px;
-  color: var(--muted);
-  font-style: italic;
-}
-
-/* ─── DAILY LESSON SECTION ─── */
-.lesson-section { padding: 3rem 4rem; }
-
-.lesson-tabs {
-  display: flex;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  width: fit-content;
-  flex-wrap: wrap;
-}
-
-.tab-btn {
-  padding: 8px 18px;
-  font-family: var(--mono);
-  font-size: 12px;
-  border: none;
-  background: var(--paper2);
-  color: var(--muted);
-  cursor: pointer;
-  border-right: 1px solid var(--border);
-  transition: background 0.15s, color 0.15s;
-}
-.tab-btn:last-child { border-right: none; }
-.tab-btn.active { background: var(--ink); color: var(--paper); }
-.tab-btn:hover:not(.active) { background: var(--paper); }
-
-.lesson-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.lesson-header {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
-.lesson-week-badge {
-  font-family: var(--kr);
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-  flex-shrink: 0;
-}
-.lesson-header-info { flex: 1; }
-.lesson-header-day { font-family: var(--mono); font-size: 11px; color: rgba(245,240,232,0.5); margin-bottom: 4px; letter-spacing: 0.1em; }
-.lesson-header-title { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--paper); line-height: 1.3; }
-.lesson-header-duration { font-family: var(--mono); font-size: 11px; color: rgba(245,240,232,0.4); margin-top: 4px; }
-
-.lesson-body { padding: 2rem; }
-
-.step-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  margin-bottom: 2rem;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  width: fit-content;
-}
-.step-item {
-  padding: 7px 16px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  background: var(--paper2);
-  border-right: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.step-item:last-child { border-right: none; }
-.step-item.done { background: var(--accent2); color: #fff; }
-.step-item.current { background: var(--ink); color: var(--paper); }
-.step-item:hover:not(.done):not(.current) { background: var(--paper); }
-
-.step-panel { display: none; }
-.step-panel.visible { display: block; }
-
-/* vocab table */
-.vocab-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
-.vocab-table th {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 6px 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-.vocab-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-  vertical-align: middle;
-}
-.vocab-table tr:last-child td { border-bottom: none; }
-.vocab-table tr:hover td { background: var(--paper2); }
-.vocab-kr { font-family: var(--kr); font-size: 16px; font-weight: 700; }
-.irreg { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 99px; background: rgba(184,134,11,0.12); color: var(--gold); margin-left: 6px; }
-.vocab-ex { font-size: 12px; color: var(--muted); font-style: italic; }
-
-/* dialogue */
-.dialogue-wrap {
-  background: var(--paper2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-.dialogue-title { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 1rem; text-transform: uppercase; }
-.dl { display: flex; gap: 12px; margin-bottom: 10px; }
-.dl-speaker { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--accent); min-width: 16px; padding-top: 2px; }
-.dl-lines { flex: 1; }
-.dl-kr { font-family: var(--kr); font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.5; }
-.dl-en { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-/* recall cards */
-.recall-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
-.recall-card {
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1rem;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  min-height: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.recall-card:hover { border-color: var(--accent2); }
-.recall-card .rc-prompt { font-family: var(--kr); font-size: 18px; font-weight: 700; color: var(--ink); }
-.recall-card .rc-reveal {
-  font-size: 13px;
-  color: transparent;
-  background: var(--paper2);
-  border-radius: 3px;
-  padding: 2px 6px;
-  width: fit-content;
-  transition: color 0.2s, background 0.2s;
-  margin-top: 8px;
-}
-.recall-card.revealed .rc-reveal { color: var(--muted); background: transparent; }
-.recall-card .rc-hint { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 6px; }
-
-/* checklist */
-.checklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-.check-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s;
-  font-size: 14px;
-}
-.check-row:hover { background: var(--paper2); }
-.check-box {
-  width: 18px; height: 18px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-}
-.check-row.checked .check-box { background: var(--accent2); border-color: var(--accent2); }
-.check-row.checked .check-box::after {
-  content: '';
-  display: block;
-  width: 10px; height: 6px;
-  border-left: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  transform: rotate(-45deg) translate(1px,-1px);
-}
-.check-row.checked { color: var(--muted); text-decoration: line-through; }
-
-.xp-awarded {
-  background: rgba(42,92,69,0.08);
-  border: 1px solid rgba(42,92,69,0.2);
-  border-radius: 4px;
-  padding: 12px 16px;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--accent2);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  display: none;
-}
-.xp-awarded.show { display: block; }
-
-.nav-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-
-/* ─── GRAMMAR QUICK REF ─── */
-.grammar-section {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 3rem 4rem;
-}
-.grammar-section .section-label { color: rgba(245,240,232,0.4); }
-.grammar-section .section-label::before { color: var(--accent); }
-.grammar-section .section-title { color: var(--paper); }
-
-.grammar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: rgba(245,240,232,0.1); border: 1px solid rgba(245,240,232,0.1); border-radius: 6px; overflow: hidden; }
-.grammar-card { background: rgba(26,23,20,0.6); padding: 1.5rem; transition: background 0.2s; }
-.grammar-card:hover { background: rgba(245,240,232,0.04); }
-.grammar-pattern { font-family: var(--kr); font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
-.grammar-meaning { font-size: 13px; color: rgba(245,240,232,0.6); margin-bottom: 10px; }
-.grammar-rule { font-family: var(--mono); font-size: 11px; color: rgba(245,240,232,0.4); margin-bottom: 10px; line-height: 1.5; }
-.grammar-ex { font-family: var(--kr); font-size: 13px; color: rgba(245,240,232,0.8); line-height: 1.8; }
-.grammar-ex span { font-size: 11px; font-family: var(--sans); color: rgba(245,240,232,0.4); font-style: italic; display: block; }
-
-/* ─── QUIZ CTA ─── */
-.quiz-section {
-  padding: 3rem 4rem;
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  border-top: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.quiz-left { flex: 1; min-width: 260px; }
-.quiz-left .section-title { margin-bottom: 0.5rem; }
-.quiz-left p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-.quiz-right { display: flex; flex-direction: column; gap: 10px; }
-.quiz-unit-btn {
-  padding: 12px 24px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  background: var(--card);
-  font-family: var(--sans);
-  font-size: 14px;
-  color: var(--ink);
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.quiz-unit-btn:hover { border-color: var(--accent); color: var(--accent); }
-.quiz-unit-btn .unit-kr { font-family: var(--kr); font-size: 1.1rem; font-weight: 700; }
-
-/* ─── FOOTER ─── */
-footer {
-  background: var(--ink);
-  color: rgba(245,240,232,0.4);
-  padding: 2rem 4rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-family: var(--mono);
-  font-size: 11px;
-}
-footer a { color: rgba(245,240,232,0.4); text-decoration: none; }
-footer a:hover { color: var(--paper); }
-
-/* ─── FADE-IN ANIMATION ─── */
-.fade-in { opacity: 0; transform: translateY(16px); animation: fadeUp 0.6s ease forwards; }
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-.fade-in:nth-child(1) { animation-delay: 0.05s; }
-.fade-in:nth-child(2) { animation-delay: 0.15s; }
-.fade-in:nth-child(3) { animation-delay: 0.25s; }
-.fade-in:nth-child(4) { animation-delay: 0.35s; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 768px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-left { padding: 2.5rem 1.5rem; min-height: 60vh; }
-  .hero-right { padding: 2.5rem 1.5rem; }
-  .hero-left::after { display: none; }
-  .tracker-section, .lesson-section, .grammar-section, .quiz-section { padding: 2rem 1.5rem; }
-  .hero-stats { grid-template-columns: 1fr 1fr; }
-  .step-indicator { flex-wrap: wrap; }
-  footer { padding: 1.5rem; flex-direction: column; text-align: center; }
-}
+@media(max-width:480px){.day-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <div>
@@ -664,39 +225,22 @@ footer a:hover { color: var(--paper); }
     </div>
     <div class="hero-bg-kr">한</div>
   </div>
-
   <div class="hero-right">
-    <div class="hero-stats fade-in">
-      <div class="stat-box">
-        <div class="num">8</div>
-        <div class="label">units</div>
-      </div>
-      <div class="stat-box">
-        <div class="num">4</div>
-        <div class="label">weeks</div>
-      </div>
-      <div class="stat-box">
-        <div class="num">1k</div>
-        <div class="label">XP to earn</div>
-      </div>
-      <div class="stat-box">
-        <div class="num">6</div>
-        <div class="label">days/week</div>
-      </div>
+    <div class="hero-stats">
+      <div class="stat-box"><div class="num">8</div><div class="label">units</div></div>
+      <div class="stat-box"><div class="num">4</div><div class="label">weeks</div></div>
+      <div class="stat-box"><div class="num" id="hero-xp">0</div><div class="label">XP earned</div></div>
+      <div class="stat-box"><div class="num" id="hero-days">0</div><div class="label">days done</div></div>
     </div>
-    <p class="hero-desc fade-in">
-      A structured, gamified review plan for the King Sejong 1B workbook.
-      Study vocabulary, grammar patterns, and dialogues for 40–50 minutes a day —
-      earn XP and unlock badges as you go.
-    </p>
-    <div class="cta-row fade-in">
-      <a href="#tracker" class="btn-primary">Start studying →</a>
-      <a href="#grammar" class="btn-outline">Grammar reference</a>
+    <p class="hero-desc">A structured, gamified review plan for the King Sejong 1B workbook. Study 40–50 min per day, earn XP, and unlock badges as you complete each week.</p>
+    <div class="cta-row">
+      <a href="#tracker" class="btn-primary">View my progress →</a>
+      <a href="#lesson" class="btn-outline">Today's lesson</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ PROGRESS TRACKER ═══ -->
+<!-- TRACKER -->
 <section class="tracker-section" id="tracker">
   <div class="section-label">Progress tracker</div>
   <div class="section-title">Your journey so far</div>
@@ -707,383 +251,433 @@ footer a:hover { color: var(--paper); }
       <div class="xp-sub">XP earned of 1,000</div>
     </div>
     <div class="bar-wrap">
-      <div class="bar-label">
-        <span>Overall progress</span>
-        <span id="pct-label">0%</span>
-      </div>
+      <div class="bar-label"><span>Overall progress</span><span id="pct-label">0%</span></div>
       <div class="bar-track"><div class="bar-fill" id="main-bar" style="width:0%"></div></div>
     </div>
     <div class="streak-badge" id="streak-badge">0-day streak</div>
   </div>
 
-  <div class="weeks-grid">
-    <div class="week-card active-week" onclick="openWeek(1)">
-      <div class="week-num">Week 01</div>
-      <div class="week-xp">+200 XP</div>
-      <div class="week-title">Food, family & abilities</div>
-      <div class="week-units">Units 9–11</div>
-      <div class="week-days">
-        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Food & taste vocab — pronounce all 13 words</span></div>
-        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-blue"></span><span>-고 싶다 pattern + 무슨 N — write 5 sentences</span></div>
-        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-amber"></span><span>Dialogue 6 (요리하는 것) — swap roles 3×</span></div>
-        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-teal"></span><span>Vocab speed recall + family vocab (높임말)</span></div>
-        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-blue"></span><span>-(으)ㄹ 수 있다/없다 — conjugation table rows</span></div>
-        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>Exercise B items 1–3 + mini can/can't dialogue</span></div>
-      </div>
-      <div class="week-badge">★ Unlock: Chef badge</div>
+  <div class="day-switcher">
+    <span class="day-switcher-label">Current day</span>
+    <div class="day-switcher-info">
+      <strong id="sw-label">Week 1 · Monday</strong>
+      <span class="day-status" id="sw-status"></span>
     </div>
-
-    <div class="week-card" onclick="openWeek(2)">
-      <div class="week-num">Week 02</div>
-      <div class="week-xp">+200 XP</div>
-      <div class="week-title">Shopping & directions</div>
-      <div class="week-units">Units 12–13</div>
-      <div class="week-days">
-        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Shopping vocab — self-quiz both directions</span></div>
-        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-blue"></span><span>-아/어 주세요 + -(으)ㄴ N — 5 shopping sentences</span></div>
-        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-teal"></span><span>Location & transport vocab + example sentences</span></div>
-        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-blue"></span><span>N에서 N까지 — map a route in Korean</span></div>
-        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-amber"></span><span>Dialogue 2 (우산) — improvise a new shopping scene</span></div>
-        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>Exercise C + translate Exercise E items 1–2</span></div>
-      </div>
-      <div class="week-badge">★ Unlock: Navigator badge</div>
-    </div>
-
-    <div class="week-card" onclick="openWeek(3)">
-      <div class="week-num">Week 03</div>
-      <div class="week-xp">+250 XP</div>
-      <div class="week-title">Travel plans & weather</div>
-      <div class="week-units">Units 14–15–16</div>
-      <div class="week-days">
-        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Travel + weather vocab — full cover-and-recall drill</span></div>
-        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-blue"></span><span>-(으)려고 하다 + -고 + -아/어서 — conjugation chart</span></div>
-        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-amber"></span><span>Dialogues 1 & 3 (날씨) — substitute your city</span></div>
-        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-blue"></span><span>-(으)니까 vs -아/어서 — write 4 contrast sentences</span></div>
-        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-teal"></span><span>ㅂ 불규칙 & ㅡ 탈락 irregular drills — all examples</span></div>
-        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>Exercise E full translation (6 sentences) + answer key</span></div>
-      </div>
-      <div class="week-badge">★ Unlock: Traveller badge</div>
-    </div>
-
-    <div class="week-card" onclick="openWeek(4)">
-      <div class="week-num">Week 04</div>
-      <div class="week-xp">+350 XP</div>
-      <div class="week-title">Hobbies + full review</div>
-      <div class="week-units">Units 9–16 Boss Week</div>
-      <div class="week-days">
-        <div class="day-row"><span class="day-label">Mo</span><span class="day-dot dot-teal"></span><span>Hobbies vocab — -는 것을 좋아하다 per hobby</span></div>
-        <div class="day-row"><span class="day-label">Tu</span><span class="day-dot dot-amber"></span><span>Dialogues 4 & 5 (취미) — speak & improvise</span></div>
-        <div class="day-row"><span class="day-label">We</span><span class="day-dot dot-blue"></span><span>ㄷ 불규칙 & 르 불규칙 — full conjugation drill</span></div>
-        <div class="day-row"><span class="day-label">Th</span><span class="day-dot dot-pink"></span><span>Exercise D full dialogue — write your own version</span></div>
-        <div class="day-row"><span class="day-label">Fr</span><span class="day-dot dot-pink"></span><span>Exercise F — 5–7 sentences, 3+ grammar patterns</span></div>
-        <div class="day-row"><span class="day-label">Sa</span><span class="day-dot dot-pink"></span><span>BOSS: 10-min spoken monologue, all 8 themes</span></div>
-      </div>
-      <div class="week-badge">★ Unlock: King Sejong 1B Master badge</div>
+    <div class="day-switcher-btns">
+      <button class="sw-btn" onclick="shiftDay(-1)">← Prev day</button>
+      <button class="sw-btn done" id="btn-done" onclick="markDone()">Mark complete ✓</button>
+      <button class="sw-btn undo" id="btn-undo" onclick="markUndone()" style="display:none">Undo ✗</button>
+      <button class="sw-btn" onclick="shiftDay(1)">Next day →</button>
+      <button class="sw-btn danger" onclick="doReset()">Reset all</button>
     </div>
   </div>
+
+  <div class="week-tabs" id="week-tabs">
+    <button class="week-tab active" onclick="switchWeek(0)">Week 1</button>
+    <button class="week-tab" onclick="switchWeek(1)">Week 2</button>
+    <button class="week-tab" onclick="switchWeek(2)">Week 3</button>
+    <button class="week-tab" onclick="switchWeek(3)">Week 4</button>
+  </div>
+  <div class="day-grid" id="day-grid"></div>
 </section>
 
-<!-- ═══ DAILY LESSON ═══ -->
+<!-- LESSON -->
 <section class="lesson-section" id="lesson">
   <div class="section-label">Daily lesson</div>
-  <div class="section-title">Week 1, Monday — food vocabulary</div>
+  <div class="section-title" id="lesson-sec-title">Week 1, Monday</div>
 
   <div class="lesson-tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'step-learn')">1 · learn</button>
-    <button class="tab-btn" onclick="switchTab(this,'step-speak')">2 · speak</button>
-    <button class="tab-btn" onclick="switchTab(this,'step-recall')">3 · recall</button>
-    <button class="tab-btn" onclick="switchTab(this,'step-done')">4 · complete</button>
+    <button class="tab-btn active" onclick="goStep('step-learn',0)">1 · learn</button>
+    <button class="tab-btn" onclick="goStep('step-speak',1)">2 · speak</button>
+    <button class="tab-btn" onclick="goStep('step-recall',2)">3 · recall</button>
+    <button class="tab-btn" onclick="goStep('step-done',3)">4 · complete</button>
   </div>
 
   <div class="lesson-card">
     <div class="lesson-header">
-      <div class="lesson-week-badge">월</div>
-      <div class="lesson-header-info">
-        <div class="lesson-header-day">Week 1 · Monday · Unit 9</div>
-        <div class="lesson-header-title">Food & taste — 음식과 맛</div>
-        <div class="lesson-header-duration">Estimated time: 15 min</div>
+      <div class="lh-badge" id="lh-badge">월</div>
+      <div>
+        <div class="lh-day" id="lh-day">Week 1 · Monday · Unit 9</div>
+        <div class="lh-title" id="lh-title">Food &amp; taste — 음식과 맛</div>
+        <div class="lh-dur" id="lh-dur">Estimated time: 40–50 min</div>
       </div>
     </div>
     <div class="lesson-body">
-
-      <!-- STEP 1: LEARN -->
       <div class="step-panel visible" id="step-learn">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Read each word aloud. Words marked <span class="irreg">irreg</span> have special conjugation — notice them now, they reappear in Tuesday's grammar session.</p>
-        <table class="vocab-table">
-          <thead><tr><th>Korean</th><th>English</th><th>Example sentence</th></tr></thead>
-          <tbody>
-            <tr><td><span class="vocab-kr">비빔밥</span></td><td>bibimbap</td><td><span class="vocab-ex">저는 비빔밥을 먹고 싶어요.</span></td></tr>
-            <tr><td><span class="vocab-kr">불고기</span></td><td>bulgogi</td><td><span class="vocab-ex">불고기가 정말 맛있어요.</span></td></tr>
-            <tr><td><span class="vocab-kr">닭갈비</span></td><td>spicy stir-fried chicken</td><td><span class="vocab-ex">오늘 저녁에 닭갈비를 먹으려고 해요.</span></td></tr>
-            <tr><td><span class="vocab-kr">김치찌개</span></td><td>kimchi stew</td><td><span class="vocab-ex">김치찌개 맛은 어때요?</span></td></tr>
-            <tr><td><span class="vocab-kr">냉면</span></td><td>cold noodles</td><td><span class="vocab-ex">여름에는 냉면이 시원해요.</span></td></tr>
-            <tr><td><span class="vocab-kr">삼겹살</span></td><td>pork belly</td><td><span class="vocab-ex">친구하고 삼겹살을 먹어요.</span></td></tr>
-            <tr><td><span class="vocab-kr">매운맛<span class="irreg">ㅂ</span></span></td><td>spicy taste</td><td><span class="vocab-ex">이 음식은 너무 매워요.</span></td></tr>
-            <tr><td><span class="vocab-kr">단맛</span></td><td>sweet taste</td><td><span class="vocab-ex">이 케이크는 정말 달아요.</span></td></tr>
-            <tr><td><span class="vocab-kr">짠맛</span></td><td>salty taste</td><td><span class="vocab-ex">국이 조금 짜요.</span></td></tr>
-            <tr><td><span class="vocab-kr">싱겁다<span class="irreg">ㅂ</span></span></td><td>bland / tasteless</td><td><span class="vocab-ex">국이 싱거워요.</span></td></tr>
-            <tr><td><span class="vocab-kr">시키다</span></td><td>to order (food)</td><td><span class="vocab-ex">뭘 시킬까요?</span></td></tr>
-            <tr><td><span class="vocab-kr">배고프다<span class="irreg">ㅡ</span></span></td><td>to be hungry</td><td><span class="vocab-ex">배고파요. 밥 먹어요.</span></td></tr>
-            <tr><td><span class="vocab-kr">배부르다<span class="irreg">ㅡ</span></span></td><td>to be full</td><td><span class="vocab-ex">많이 먹어서 배불러요.</span></td></tr>
-          </tbody>
-        </table>
-        <div class="nav-row">
-          <span></span>
-          <button class="btn-primary" onclick="advanceStep('step-speak',1)">Read them all — next step →</button>
-        </div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6" id="learn-intro"></p>
+        <div id="learn-content"></div>
+        <div class="nav-row"><span></span><button class="btn-primary" onclick="goStep('step-speak',1)">Done — next step →</button></div>
       </div>
-
-      <!-- STEP 2: SPEAK -->
       <div class="step-panel" id="step-speak">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Read this dialogue aloud twice — once slowly, once at natural speed. Then swap roles and try person B's lines from memory.</p>
-        <div class="dialogue-wrap">
-          <div class="dialogue-title">음식 주문 — ordering food</div>
-          <div class="dl"><span class="dl-speaker">A</span><div class="dl-lines"><div class="dl-kr">어서 오세요. 뭘 시킬까요?</div><div class="dl-en">Welcome. What shall we order?</div></div></div>
-          <div class="dl"><span class="dl-speaker">B</span><div class="dl-lines"><div class="dl-kr">저는 비빔밥을 먹고 싶어요. 김치찌개도 시킬까요?</div><div class="dl-en">I want bibimbap. Shall we also order kimchi stew?</div></div></div>
-          <div class="dl"><span class="dl-speaker">A</span><div class="dl-lines"><div class="dl-kr">좋아요. 그런데 김치찌개가 매워요?</div><div class="dl-en">Sure. But is the kimchi stew spicy?</div></div></div>
-          <div class="dl"><span class="dl-speaker">B</span><div class="dl-lines"><div class="dl-kr">네, 조금 매워요. 그리고 좀 짜요. 괜찮아요?</div><div class="dl-en">Yes, a little spicy. And a bit salty. Is that okay?</div></div></div>
-          <div class="dl"><span class="dl-speaker">A</span><div class="dl-lines"><div class="dl-kr">네, 괜찮아요. 저는 매운 음식을 좋아해요!</div><div class="dl-en">Yes, that's fine. I love spicy food!</div></div></div>
-        </div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6">Read this dialogue aloud twice — once slowly, once at natural speed. Swap roles, then try the Korean lines from memory.</p>
+        <div id="speak-content"></div>
         <div class="nav-row">
-          <button class="btn-outline" onclick="advanceStep('step-learn',0)">← back</button>
-          <button class="btn-primary" onclick="advanceStep('step-recall',2)">Done — cover & recall →</button>
+          <button class="btn-outline" onclick="goStep('step-learn',0)">← back</button>
+          <button class="btn-primary" onclick="goStep('step-recall',2)">Done — cover &amp; recall →</button>
         </div>
       </div>
-
-      <!-- STEP 3: RECALL -->
       <div class="step-panel" id="step-recall">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;">Say the answer aloud before tapping each card to reveal it.</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Say the answer aloud before tapping each card to reveal it.</p>
         <div class="recall-grid" id="recall-grid"></div>
         <div class="nav-row">
-          <button class="btn-outline" onclick="advanceStep('step-speak',1)">← back</button>
-          <button class="btn-primary" onclick="advanceStep('step-done',3)">I'm done — finish →</button>
+          <button class="btn-outline" onclick="goStep('step-speak',1)">← back</button>
+          <button class="btn-primary" onclick="goStep('step-done',3)">I'm done — finish →</button>
         </div>
       </div>
-
-      <!-- STEP 4: COMPLETE -->
       <div class="step-panel" id="step-done">
-        <div class="xp-awarded show">+ 20 XP — Week 1 Monday complete! 화이팅!</div>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Tick off each item before you close the lesson.</p>
+        <div class="xp-toast-bar pending" id="xp-bar-msg"></div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6">Tick off each item, then mark the day complete to earn your XP.</p>
         <div class="checklist" id="checklist"></div>
         <div class="nav-row">
-          <button class="btn-outline" onclick="advanceStep('step-recall',2)">← back</button>
+          <button class="btn-outline" onclick="goStep('step-recall',2)">← back</button>
+          <button class="btn-green" onclick="markDone();showToast('Day complete! XP awarded 🎉')">Mark day complete &amp; earn XP ✓</button>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══ GRAMMAR QUICK REFERENCE ═══ -->
+<!-- GRAMMAR -->
 <section class="grammar-section" id="grammar">
   <div class="section-label">Grammar reference</div>
-  <div class="section-title" style="color:var(--paper);">Core patterns — units 9–16</div>
-
+  <div class="section-title" style="color:var(--paper)">Core patterns — units 9–16</div>
   <div class="grammar-grid">
-    <div class="grammar-card">
-      <div class="grammar-pattern">-고 싶다</div>
-      <div class="grammar-meaning">I want to V</div>
-      <div class="grammar-rule">Attach to verb stem. 1st/2nd person only.<br>3rd person → -고 싶어하다</div>
-      <div class="grammar-ex">저는 비빔밥을 먹고 싶어요.<span>I want to eat bibimbap.</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">-(으)ㄹ 수 있다/없다</div>
-      <div class="grammar-meaning">can / cannot V</div>
-      <div class="grammar-rule">Consonant stem → -을 수 있다<br>Vowel stem → -ㄹ 수 있다</div>
-      <div class="grammar-ex">기타를 칠 수 있어요.<span>I can play guitar.</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">-(으)려고 하다</div>
-      <div class="grammar-meaning">plan / intend to V</div>
-      <div class="grammar-rule">Consonant stem → -으려고 하다<br>Vowel stem → -려고 하다</div>
-      <div class="grammar-ex">제주도에 가려고 해요.<span>I'm planning to go to Jeju.</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">-아/어서</div>
-      <div class="grammar-meaning">because / and then</div>
-      <div class="grammar-rule">-아서 after ㅏ/ㅗ, -어서 elsewhere<br>하다 → 해서. No independent tense.</div>
-      <div class="grammar-ex">날씨가 좋아서 공원에 가요.<span>The weather's nice so I'm going to the park.</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">-(으)니까</div>
-      <div class="grammar-meaning">because / since</div>
-      <div class="grammar-rule">After consonant → -으니까<br>After vowel → -니까<br>Preferred with commands & proposals</div>
-      <div class="grammar-ex">비가 오니까 우산을 가지고 가세요.<span>It's raining so take an umbrella.</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">-는 것을 좋아하다</div>
-      <div class="grammar-meaning">to like V-ing</div>
-      <div class="grammar-rule">Attach -는 것 to verb stem → noun<br>Then add 을/를 좋아하다</div>
-      <div class="grammar-ex">저는 요리하는 것을 좋아해요.<span>I like cooking.</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">ㅂ 불규칙</div>
-      <div class="grammar-meaning">ㅂ irregular verbs</div>
-      <div class="grammar-rule">ㅂ → 우 before vowel endings<br>(+어요 → 워요)</div>
-      <div class="grammar-ex">덥다 → 더워요 · 춥다 → 추워요<span>hot → is hot · cold → is cold</span></div>
-    </div>
-    <div class="grammar-card">
-      <div class="grammar-pattern">르 불규칙</div>
-      <div class="grammar-meaning">르 irregular verbs</div>
-      <div class="grammar-rule">Drop ㅡ, double the ㄹ<br>before -아/어</div>
-      <div class="grammar-ex">부르다 → 불러요 · 모르다 → 몰라요<span>to sing → sings · to not know → doesn't know</span></div>
-    </div>
+    <div class="grammar-card"><div class="gram-pat">-고 싶다</div><div class="gram-mean">I want to V</div><div class="gram-rule">Attach to verb stem. 1st/2nd person only.<br>3rd person → -고 싶어하다</div><div class="gram-ex">저는 비빔밥을 먹고 싶어요.<span>I want to eat bibimbap.</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">-(으)ㄹ 수 있다/없다</div><div class="gram-mean">can / cannot V</div><div class="gram-rule">Consonant stem → -을 수 있다<br>Vowel stem → -ㄹ 수 있다</div><div class="gram-ex">기타를 칠 수 있어요.<span>I can play guitar.</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">-(으)려고 하다</div><div class="gram-mean">plan / intend to V</div><div class="gram-rule">Consonant stem → -으려고 하다<br>Vowel stem → -려고 하다</div><div class="gram-ex">제주도에 가려고 해요.<span>I'm planning to go to Jeju.</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">-아/어서</div><div class="gram-mean">because / and then</div><div class="gram-rule">-아서 after ㅏ/ㅗ, -어서 elsewhere<br>하다 → 해서. No independent tense.</div><div class="gram-ex">날씨가 좋아서 공원에 가요.<span>The weather's nice so I'm going to the park.</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">-(으)니까</div><div class="gram-mean">because / since</div><div class="gram-rule">After consonant → -으니까<br>After vowel → -니까<br>Preferred with commands &amp; proposals</div><div class="gram-ex">비가 오니까 우산을 가지고 가세요.<span>It's raining so take an umbrella.</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">-는 것을 좋아하다</div><div class="gram-mean">to like V-ing</div><div class="gram-rule">Attach -는 것 to verb stem → noun<br>Then add 을/를 좋아하다</div><div class="gram-ex">저는 요리하는 것을 좋아해요.<span>I like cooking.</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">ㅂ 불규칙</div><div class="gram-mean">ㅂ irregular</div><div class="gram-rule">ㅂ → 우 before vowel endings (+어요 → 워요)</div><div class="gram-ex">덥다 → 더워요 · 춥다 → 추워요<span>hot / cold</span></div></div>
+    <div class="grammar-card"><div class="gram-pat">르 불규칙</div><div class="gram-mean">르 irregular</div><div class="gram-rule">Drop ㅡ, double the ㄹ before -아/어</div><div class="gram-ex">부르다 → 불러요 · 모르다 → 몰라요<span>to sing / to not know</span></div></div>
   </div>
 </section>
 
-<!-- ═══ QUIZ CTA ═══ -->
+<!-- QUIZ -->
 <section class="quiz-section">
   <div class="quiz-left">
     <div class="section-label">Vocabulary quiz</div>
     <div class="section-title">Test your knowledge</div>
-    <p>20-question multiple-choice quizzes drawn from the workbook's vocabulary lists. Tracks correct/wrong and shows a missed-word review at the end.</p>
+    <p>20-question multiple-choice quizzes drawn from the workbook's vocabulary lists. Tracks score and shows missed words at the end.</p>
   </div>
   <div class="quiz-right">
-    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
-      <span class="unit-kr">9·10</span>
-      <span>Food & family — units 9–10</span>
-    </div>
-    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
-      <span class="unit-kr">11·12</span>
-      <span>Abilities & shopping — units 11–12</span>
-    </div>
-    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
-      <span class="unit-kr">13·14</span>
-      <span>Location & transport — units 13–14</span>
-    </div>
-    <div class="quiz-unit-btn" onclick="alert('Open this page in claude.ai and use the quiz widget!')">
-      <span class="unit-kr">15·16</span>
-      <span>Travel & weather — units 15–16</span>
-    </div>
+    <div class="qub"><span class="ukr">9·10</span><span>Food &amp; family — units 9–10</span></div>
+    <div class="qub"><span class="ukr">11·12</span><span>Abilities &amp; shopping — units 11–12</span></div>
+    <div class="qub"><span class="ukr">13·14</span><span>Location &amp; transport — units 13–14</span></div>
+    <div class="qub"><span class="ukr">15·16</span><span>Travel &amp; weather — units 15–16</span></div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
 <footer>
   <div>세종한국어 1B · Recap Workbook · Units 9–16</div>
   <div>Based on King Sejong Institute materials · <a href="https://www.sejonghakdang.org" target="_blank">sejonghakdang.org</a></div>
 </footer>
 
+<div class="toast" id="toast"></div>
+
 <script>
-const recallData = [
-  {prompt:"비빔밥", reveal:"bibimbap"},
-  {prompt:"to be hungry", reveal:"배고프다"},
-  {prompt:"김치찌개", reveal:"kimchi stew"},
-  {prompt:"bland / tasteless", reveal:"싱겁다"},
-  {prompt:"삼겹살", reveal:"pork belly"},
-  {prompt:"to order food", reveal:"시키다"},
-  {prompt:"냉면", reveal:"cold noodles"},
-  {prompt:"to be full", reveal:"배부르다"},
-  {prompt:"spicy taste", reveal:"매운맛"},
-  {prompt:"불고기", reveal:"bulgogi"},
-  {prompt:"sweet taste", reveal:"단맛"},
-  {prompt:"닭갈비", reveal:"spicy stir-fried chicken"},
-  {prompt:"salty taste", reveal:"짠맛"},
+/* ─── ALL 24 DAYS ─── */
+const DAYS=[
+{week:1,day:'Monday',badge:'월',dot:'dot-teal',xp:20,unit:'Unit 9',title:'Food & taste — 음식과 맛',short:'Food & taste vocab — pronounce all 13 words',intro:'Read each word aloud. Words marked <span class="irreg">irreg</span> have irregular conjugation.',
+vocab:[['비빔밥','bibimbap','저는 비빔밥을 먹고 싶어요.',''],['불고기','bulgogi','불고기가 정말 맛있어요.',''],['닭갈비','spicy stir-fried chicken','오늘 저녁에 닭갈비를 먹으려고 해요.',''],['김치찌개','kimchi stew','김치찌개 맛은 어때요?',''],['냉면','cold noodles','여름에는 냉면이 시원해요.',''],['삼겹살','pork belly','친구하고 삼겹살을 먹어요.',''],['매운맛','spicy taste','이 음식은 너무 매워요.','ㅂ'],['단맛','sweet taste','이 케이크는 정말 달아요.',''],['짠맛','salty taste','국이 조금 짜요.',''],['싱겁다','bland/tasteless','국이 싱거워요.','ㅂ'],['시키다','to order (food)','뭘 시킬까요?',''],['배고프다','to be hungry','배고파요. 밥 먹어요.','ㅡ'],['배부르다','to be full','많이 먹어서 배불러요.','ㅡ']],
+dial:{t:'음식 주문 — ordering food',l:[{s:'A',k:'어서 오세요. 뭘 시킬까요?',e:'Welcome. What shall we order?'},{s:'B',k:'저는 비빔밥을 먹고 싶어요. 김치찌개도 시킬까요?',e:'I want bibimbap. Shall we order kimchi stew too?'},{s:'A',k:'좋아요. 그런데 김치찌개가 매워요?',e:'Sure. But is the kimchi stew spicy?'},{s:'B',k:'네, 조금 매워요. 그리고 좀 짜요. 괜찮아요?',e:'Yes, a little spicy and salty. Is that okay?'},{s:'A',k:'네, 괜찮아요. 저는 매운 음식을 좋아해요!',e:'Yes, fine. I love spicy food!'}]},
+recall:[{p:'비빔밥',r:'bibimbap'},{p:'to be hungry',r:'배고프다'},{p:'김치찌개',r:'kimchi stew'},{p:'bland/tasteless',r:'싱겁다'},{p:'삼겹살',r:'pork belly'},{p:'to order food',r:'시키다'},{p:'냉면',r:'cold noodles'},{p:'to be full',r:'배부르다'},{p:'spicy taste',r:'매운맛'},{p:'불고기',r:'bulgogi'}],
+checks:['Read all 13 words aloud without hesitation','Identified all irregular words (ㅂ & ㅡ)','Read dialogue aloud twice, both roles','Recalled 8+ hidden answers correctly']},
+
+{week:1,day:'Tuesday',badge:'화',dot:'dot-blue',xp:25,unit:'Unit 9',title:'-고 싶다 + 무슨 N grammar',short:'-고 싶다 pattern + 무슨 N — write 5 original sentences',intro:'Study the two grammar patterns below. Then write 5 of your own sentences.',
+vocab:[['−고 싶다','I want to V','저는 비빔밥을 먹고 싶어요.','pattern'],['무슨 + N','what (kind of) N','무슨 음식을 좋아해요?','pattern'],['먹다','to eat','뭘 먹고 싶어요?',''],['마시다','to drink','뭘 마시고 싶어요?',''],['가다','to go','어디에 가고 싶어요?',''],['사다','to buy','뭘 사고 싶어요?',''],['보다','to watch/see','무슨 영화를 보고 싶어요?','']],
+dial:{t:'Grammar pattern practice',l:[{s:'A',k:'무슨 음식을 좋아해요?',e:'What food do you like?'},{s:'B',k:'저는 한국 음식을 좋아해요. 특히 불고기를 먹고 싶어요.',e:'I like Korean food. Especially I want to eat bulgogi.'},{s:'A',k:'무슨 음료를 마시고 싶어요?',e:'What drink do you want?'},{s:'B',k:'저는 따뜻한 차를 마시고 싶어요.',e:'I want to drink warm tea.'}]},
+recall:[{p:'I want to eat',r:'먹고 싶어요'},{p:'I want to go',r:'가고 싶어요'},{p:'what food?',r:'무슨 음식?'},{p:'I want to buy',r:'사고 싶어요'},{p:'I want to watch',r:'보고 싶어요'},{p:'I want to drink',r:'마시고 싶어요'}],
+checks:['Understood -고 싶다 conjugation rule','Understood 무슨 + N rule','Wrote 5 original sentences','Read dialogue aloud twice']},
+
+{week:1,day:'Wednesday',badge:'수',dot:'dot-amber',xp:20,unit:'Unit 9',title:'Dialogue 6 — 요리하는 것을 좋아해요',short:'Dialogue 6 (요리하는 것) — swap roles 3×, cover Korean',intro:'Study key phrases from Dialogue 6. Focus on -는 것을 좋아하다 and -(으)ㄹ 수 있다.',
+vocab:[['요리하다','to cook','요리하는 것을 좋아해요.',''],['배우다','to learn','한국 요리를 배우고 있어요.',''],['만들다','to make','김치찌개를 만들 수 있어요.','ㄹ'],['가르치다','to teach','저도 가르쳐 주세요.',''],['가지고 오다','to bring','음료수만 가지고 오세요.',''],['−는 것을 좋아하다','to like V-ing','요리하는 것을 좋아해요.','pattern']],
+dial:{t:'요리하는 것을 좋아해요 (Dialogue 6)',l:[{s:'토마스',k:'지은 씨, 요즘 뭘 배워요?',e:"Jieun, what are you learning these days?"},{s:'지은',k:'한국 요리를 배우고 있어요. 요리하는 것을 정말 좋아해요.',e:'I\'m learning Korean cooking. I really love cooking.'},{s:'토마스',k:'무슨 음식을 만들 수 있어요?',e:'What dishes can you make?'},{s:'지은',k:'김치찌개하고 불고기를 만들 수 있어요.',e:'I can make kimchi stew and bulgogi.'},{s:'토마스',k:'와, 대단해요! 다음에 저도 가르쳐 주세요.',e:'Wow, amazing! Please teach me sometime.'},{s:'지은',k:'네, 주말에 우리 집에 오세요. 같이 만들어요.',e:"Sure, come to my place on the weekend."},{s:'토마스',k:'감사해요. 그럼 뭘 사 가지고 갈까요?',e:'Thanks. What should I bring?'},{s:'지은',k:'음료수만 가지고 오세요.',e:'Just bring drinks.'}]},
+recall:[{p:'요리하다',r:'to cook'},{p:'to learn',r:'배우다'},{p:'만들다',r:'to make'},{p:'I like cooking',r:'요리하는 것을 좋아해요'},{p:'to teach',r:'가르치다'},{p:'to bring',r:'가지고 오다'}],
+checks:['Read dialogue aloud — role 토마스','Read dialogue aloud — role 지은','Covered Korean and reconstructed from English','Used -는 것을 좋아하다 in 2 own sentences']},
+
+{week:1,day:'Thursday',badge:'목',dot:'dot-teal',xp:20,unit:'Unit 10',title:'Family vocab + 높임말 basics',short:'Vocab speed recall + family vocab (높임말, -(으)시-)',intro:'Study family vocabulary and the honorific suffix -(으)시-. Used when speaking about elders.',
+vocab:[['가족','family','가족이 몇 명이에요?',''],['부모님','parents','부모님이 서울에 사세요.',''],['아버지','father (formal)','아버지가 의사예요.',''],['어머니','mother (formal)','어머니가 요리를 잘 하세요.',''],['형/오빠','older brother','형이 대학생이에요.',''],['누나/언니','older sister','언니가 회사에 다녀요.',''],['동생','younger sibling','동생이 두 명 있어요.',''],['남편','husband','남편이 회사원이에요.',''],['아내','wife','아내가 선생님이에요.',''],['할아버지','grandfather','할아버지가 건강하세요.',''],['할머니','grandmother','할머니가 요리를 잘 하세요.',''],['-(으)시-','honorific suffix','부모님이 오세요.','pattern'],['이/가 있다/없다','to have / not have','형이 있어요.','']],
+dial:{t:'가족 소개 — introducing family',l:[{s:'A',k:'가족이 몇 명이에요?',e:'How many people are in your family?'},{s:'B',k:'네 명이에요. 부모님하고 동생이 있어요.',e:'Four. I have parents and a younger sibling.'},{s:'A',k:'부모님은 어디에 사세요?',e:'Where do your parents live?'},{s:'B',k:'서울에 사세요. 아버지는 회사원이시고 어머니는 선생님이세요.',e:'They live in Seoul. My father is an office worker and my mother is a teacher.'}]},
+recall:[{p:'가족',r:'family'},{p:'parents',r:'부모님'},{p:'older brother (m)',r:'형'},{p:'younger sibling',r:'동생'},{p:'grandfather',r:'할아버지'},{p:'to have',r:'이/가 있다'},{p:'아내',r:'wife'},{p:'honorific suffix',r:'-(으)시-'}],
+checks:['Recalled all family vocabulary','Understood -(으)시- honorific rule','Can distinguish 형/오빠 and 누나/언니','Read the dialogue aloud twice']},
+
+{week:1,day:'Friday',badge:'금',dot:'dot-blue',xp:30,unit:'Unit 11',title:'-(으)ㄹ 수 있다/없다 — can / cannot',short:'-(으)ㄹ 수 있다/없다 — conjugation table rows',intro:'Master the ability pattern. Work through conjugation chart rows. Note the rule for consonant vs vowel stems.',
+vocab:[['-(으)ㄹ 수 있다','can V','한국어를 말할 수 있어요.','pattern'],['-(으)ㄹ 수 없다','cannot V','오늘은 갈 수 없어요.','pattern'],['못 + V','cannot V (colloquial)','저는 수영을 못 해요.','pattern'],['배우다','to learn','한국어를 배울 수 있어요.',''],['듣다','to listen','음악을 들을 수 있어요.','ㄷ'],['만들다','to make','김치찌개를 만들 수 있어요.','ㄹ'],['치다','to play (instrument)','기타를 칠 수 있어요?',''],['말하다','to speak','한국어를 말할 수 있어요.','']],
+dial:{t:'모임 준비 — can you come?',l:[{s:'A',k:'이번 주말에 파티에 올 수 있어요?',e:'Can you come to the party this weekend?'},{s:'B',k:'토요일은 갈 수 있는데 일요일은 못 가요.',e:"I can go Saturday but I can't go Sunday."},{s:'A',k:'그럼 토요일에 같이 요리할 수 있어요?',e:'Can we cook together on Saturday then?'},{s:'B',k:'네, 저는 한국 음식을 조금 만들 수 있어요.',e:'Yes, I can make Korean food a little.'}]},
+recall:[{p:'can eat',r:'먹을 수 있어요'},{p:'cannot go',r:'갈 수 없어요'},{p:'can listen',r:'들을 수 있어요'},{p:'can make',r:'만들 수 있어요'},{p:'cannot play',r:'칠 수 없어요'},{p:'can speak',r:'말할 수 있어요'}],
+checks:['Understood consonant vs vowel stem rule','Conjugated 배우다 in all three tenses','Conjugated 듣다 correctly (ㄷ irregular)','Wrote 4 can/cannot sentences about yourself']},
+
+{week:1,day:'Saturday',badge:'토',dot:'dot-pink',xp:30,unit:'Unit 11',title:'Exercise B + mini dialogue',short:"Exercise B items 1–3 + create your own can/can't mini-dialogue",intro:'Complete the workbook exercises. Then write your own dialogue using this week\'s patterns.',
+vocab:[['먹다 + 고 싶다','want to eat','먹고 싶어요','B-1'],['보다 + (으)려고 하다','plan to watch','보려고 해요','B-2'],['치다 + (으)ㄹ 수 있다','can play','칠 수 있어요','B-3'],['먹다 + (으)ㄹ 수 없다','cannot eat','먹을 수 없어요','B-4'],['찍다 + (으)려고 하다','plan to take (photo)','찍으려고 해요','B-5'],['쉬다 + 고 싶다','want to rest','쉬고 싶어요','B-6']],
+dial:{t:'주말 계획 — weekend plans',l:[{s:'A',k:'이번 주말에 뭘 하고 싶어요?',e:'What do you want to do this weekend?'},{s:'B',k:'집에서 쉬고 싶어요. 요즘 너무 바빠요.',e:"I want to rest at home. I've been so busy."},{s:'A',k:'저는 친구를 만나려고 해요. 같이 갈 수 있어요?',e:"I'm planning to meet a friend. Can you come?"},{s:'B',k:'미안해요, 이번 주는 갈 수 없어요.',e:"Sorry, I can't go this week."}]},
+recall:[{p:'먹고 싶어요',r:'I want to eat'},{p:'plan to watch',r:'보려고 해요'},{p:'칠 수 있어요',r:'can play'},{p:'먹을 수 없어요',r:'cannot eat'},{p:'찍으려고 해요',r:'plan to take photo'},{p:'쉬고 싶어요',r:'want to rest'}],
+checks:['Completed Exercise B items 1–6','Checked answers against answer key (section 7)','Wrote a new 4-line dialogue using 2+ patterns','Identified and understood any mistakes']},
+
+// ── WEEK 2 ──
+{week:2,day:'Monday',badge:'월',dot:'dot-teal',xp:20,unit:'Unit 12',title:'Shopping vocab — 쇼핑 단어',short:'Shopping vocab — self-quiz both directions',intro:'Study shopping vocabulary. Cover English and recall from Korean, then reverse.',
+vocab:[['사이즈','size','더 큰 사이즈는 없어요?',''],['색깔','color','무슨 색깔을 좋아해요?',''],['크다','big','가방이 너무 커요.','ㅡ'],['작다','small','이 신발은 좀 작아요.',''],['길다','long','치마가 길어요.','ㄹ'],['짧다','short','머리가 짧아요.',''],['비싸다','expensive','이 옷은 너무 비싸요.',''],['싸다','cheap','시장이 더 싸요.',''],['예쁘다','pretty','이 가방이 예뻐요.','ㅡ'],['입다','to wear (clothes)','오늘 코트를 입을 거예요.',''],['신다','to wear (shoes)','운동화를 신어요.',''],['바꾸다','to exchange','사이즈를 바꿔 주세요.',''],['깎아 주세요','please discount','조금 깎아 주세요.','phrase']],
+dial:{t:'쇼핑 — shopping',l:[{s:'직원',k:'어서 오세요. 뭘 찾으세요?',e:'Welcome. What are you looking for?'},{s:'손님',k:'이 가방 있어요? 더 큰 사이즈는 없어요?',e:"Do you have this bag? Don't you have a bigger size?"},{s:'직원',k:"이 색깔은 어때요? 예쁘고 싸요.",e:"How about this color? It's pretty and cheap."},{s:'손님',k:'좋아요. 그런데 조금 깎아 주세요.',e:'Okay. But please give me a discount.'}]},
+recall:[{p:'사이즈',r:'size'},{p:'expensive',r:'비싸다'},{p:'pretty',r:'예쁘다'},{p:'to exchange',r:'바꾸다'},{p:'색깔',r:'color'},{p:'please discount',r:'깎아 주세요'},{p:'big (irregular)',r:'크다'},{p:'to wear clothes',r:'입다'}],
+checks:['Korean → English self-quiz done','English → Korean self-quiz done','Noted ㅡ-irregular words (크다, 예쁘다)','Read dialogue aloud twice']},
+
+{week:2,day:'Tuesday',badge:'화',dot:'dot-blue',xp:25,unit:'Unit 12',title:'-아/어 주세요 + -(으)ㄴ N',short:'-아/어 주세요 + -(으)ㄴ N — 5 shopping sentences',intro:'Two key shopping patterns. Study the rules then write 5 sentences combining them.',
+vocab:[['−아/어 주세요','please do V for me','바꿔 주세요.','pattern'],['-(으)ㄴ + N','adjective + noun','더 큰 가방이 있어요?','pattern'],['더','more / even more','더 싼 건 없어요?',''],['덜','less','덜 매운 음식이 있어요?',''],['보여 주세요','please show me','이거 보여 주세요.','phrase'],['포장해 주세요','please wrap it','예쁘게 포장해 주세요.','phrase']],
+dial:{t:'더 큰 사이즈 — bigger size',l:[{s:'손님',k:'이 옷 더 작은 사이즈 있어요?',e:'Do you have a smaller size of these clothes?'},{s:'직원',k:'잠깐만요. 확인해 볼게요.',e:'Just a moment. Let me check.'},{s:'직원',k:'죄송해요, 작은 사이즈는 없어요.',e:"Sorry, we don't have a small size."},{s:'손님',k:"그럼 이걸로 주세요. 포장해 주세요.",e:"Then I'll take this. Please wrap it."}]},
+recall:[{p:'please change it',r:'바꿔 주세요'},{p:'please show me',r:'보여 주세요'},{p:'a bigger bag',r:'더 큰 가방'},{p:'cheaper clothes',r:'더 싼 옷'},{p:'please wrap',r:'포장해 주세요'},{p:'less spicy',r:'덜 매운'}],
+checks:['Understood -아/어 주세요 formation','Understood -(으)ㄴ + noun rule','Wrote 5 shopping sentences','Can make polite shopping requests']},
+
+{week:2,day:'Wednesday',badge:'수',dot:'dot-teal',xp:20,unit:'Unit 13',title:'Location & transport vocab',short:'Location & transport vocab + example sentences',intro:'Study all location and transport words. Say each example sentence aloud.',
+vocab:[['지하철','subway','지하철로 가요.',''],['버스','bus','학교까지 버스로 가요.',''],['택시','taxi','택시를 탈까요?',''],['자전거','bicycle','공원에서 자전거를 타요.',''],['걸어서','on foot','집에서 걸어서 와요.',''],['타다','to ride/take','몇 번 버스를 타요?',''],['내리다','to get off','다음 역에서 내리세요.',''],['갈아타다','to transfer','시청역에서 갈아타요.',''],['왼쪽','left','병원에서 왼쪽으로 가세요.',''],['오른쪽','right','다음 신호에서 오른쪽으로.',''],['똑바로','straight','똑바로 가세요.',''],['가깝다','near','학교가 집에서 가까워요.','ㅂ'],['멀다','far','공항이 좀 멀어요.','ㄹ'],['시간이 걸리다','to take time','얼마나 걸려요?','']],
+dial:{t:'위치 묻기 — asking for directions',l:[{s:'A',k:'세종식당이 어디에 있어요?',e:'Where is Sejong restaurant?'},{s:'B',k:'저기 은행에서 왼쪽으로 가세요. 그리고 똑바로 가면 있어요.',e:'Turn left at that bank. Then go straight and you\'ll find it.'},{s:'A',k:'걸어서 얼마나 걸려요?',e:'How long does it take on foot?'},{s:'B',k:'5분쯤 걸려요. 가까워요.',e:'About 5 minutes. It\'s close.'}]},
+recall:[{p:'지하철',r:'subway'},{p:'to transfer',r:'갈아타다'},{p:'왼쪽',r:'left'},{p:'on foot',r:'걸어서'},{p:'near (ㅂ irreg)',r:'가깝다'},{p:'how long?',r:'얼마나 걸려요?'},{p:'똑바로',r:'straight'},{p:'to get off',r:'내리다'}],
+checks:['Recalled all 14 words','Identified ㅂ and ㄹ irregular words','Read directions dialogue aloud','Can give basic directions in Korean']},
+
+{week:2,day:'Thursday',badge:'목',dot:'dot-blue',xp:25,unit:'Unit 13',title:'N에서 N까지 + -(으)로',short:'N에서 N까지 — map a route from home to school in Korean',intro:'Two key patterns for transport and direction. Map a real route you know in Korean.',
+vocab:[['N에서 N까지','from N to N','집에서 학교까지 가요.','pattern'],['N(으)로','by means of N','버스로 가요.','pattern'],['N(으)로','in the direction of N','왼쪽으로 가세요.','pattern'],['얼마나 걸리다','how long does it take','얼마나 걸려요?',''],['쯤','approximately','30분쯤 걸려요.',''],['어디에서','from where','어디에서 갈아타요?','']],
+dial:{t:'교통수단 — transport',l:[{s:'A',k:'집에서 학교까지 어떻게 가요?',e:'How do you get from home to school?'},{s:'B',k:'지하철로 가요. 여기에서 시청역까지 가서 갈아타요.',e:'I go by subway. I go from here to City Hall station and transfer.'},{s:'A',k:'얼마나 걸려요?',e:'How long does it take?'},{s:'B',k:'30분쯤 걸려요.',e:'About 30 minutes.'}]},
+recall:[{p:'from home to school',r:'집에서 학교까지'},{p:'by bus',r:'버스로'},{p:'by subway',r:'지하철로'},{p:'turn left',r:'왼쪽으로 가세요'},{p:'how long?',r:'얼마나 걸려요?'},{p:'approximately',r:'쯤'}],
+checks:['Understood N에서 N까지 pattern','Understood -(으)로 for means and direction','Wrote out a real route in Korean','Read the dialogue aloud twice']},
+
+{week:2,day:'Friday',badge:'금',dot:'dot-amber',xp:20,unit:'Unit 12',title:'Dialogue 2 — 비가 올 거예요',short:'Dialogue 2 (우산) — read aloud, improvise a new shopping scene',intro:'Focus on -지만 (but), future tense prediction, and comparative shopping expressions.',
+vocab:[['우산','umbrella','우산을 사고 싶어요.',''],['튼튼하다','sturdy/strong','이 우산은 튼튼해요.',''],['−지만','but/however','작지만 튼튼해요.','pattern'],['비가 올 거예요','it will rain','내일 비가 올 거예요.','phrase'],['이걸로 주세요','I\'ll take this one','이걸로 주세요.','phrase'],['더 싼 건','anything cheaper','더 싼 건 없어요?','phrase']],
+dial:{t:'우산 사기 — buying an umbrella (Dialogue 2)',l:[{s:'직원',k:'어서 오세요. 뭘 찾으세요?',e:'Welcome. What are you looking for?'},{s:'손님',k:"우산을 사고 싶어요. 내일 비가 올 거예요.",e:"I want to buy an umbrella. It's going to rain tomorrow."},{s:'직원',k:"이 우산은 어때요? 작지만 튼튼해요.",e:"How about this one? It's small but sturdy."},{s:'손님',k:"예뻐요. 그런데 좀 비싸요. 더 싼 건 없어요?",e:"It's pretty but a bit expensive. Anything cheaper?"},{s:'직원',k:"이건 만 오천 원이에요. 색깔도 예뻐요.",e:"This one is 15,000 won. The color is pretty too."},{s:'손님',k:"그럼 이걸로 주세요.",e:"Then I'll take this one."}]},
+recall:[{p:'우산',r:'umbrella'},{p:'sturdy',r:'튼튼하다'},{p:'small but sturdy',r:'작지만 튼튼해요'},{p:'it will rain',r:'비가 올 거예요'},{p:"I'll take this",r:'이걸로 주세요'},{p:'anything cheaper?',r:'더 싼 건 없어요?'}],
+checks:['Read dialogue aloud (both roles)','Improvised a new shopping scene','Used -지만 in 2 own sentences','Understood price expressions in Korean']},
+
+{week:2,day:'Saturday',badge:'토',dot:'dot-pink',xp:30,unit:'Unit 12–13',title:'Exercise C + Exercise E items 1–2',short:'Exercise C weather match + translate Exercise E items 1–2',intro:'Complete the workbook exercises. Check answers against the answer key in section 7.',
+vocab:[['비가 와요','it is raining','오늘 비가 와요.','C-1'],['바람이 불어요','it is windy','바람이 많이 불어요.','C-2'],['하늘이 맑아요','the sky is clear','하늘이 맑고 좋아요.','C-3'],['너무 더워요','it is too hot','여름에 너무 더워요.','C-4'],['눈이 와요','it is snowing','겨울에 눈이 와요.','C-5'],['조금 흐려요','it is a bit cloudy','오늘 조금 흐려요.','C-6']],
+dial:{t:'Exercise E sample answers',l:[{s:'E-1',k:'날씨가 좋으니까 공원에 가요.',e:'The weather is nice so let\'s go to the park.'},{s:'E-2',k:'저녁에 김치찌개를 먹고 싶어요.',e:'I want to eat kimchi stew for dinner.'}]},
+recall:[{p:'비가 와요',r:'it is raining'},{p:'windy',r:'바람이 불어요'},{p:'맑아요',r:'clear/sunny'},{p:'it is snowing',r:'눈이 와요'},{p:'too hot',r:'너무 더워요'},{p:'cloudy',r:'흐려요'}],
+checks:['Completed Exercise C matching (1–6)','Translated Exercise E item 1 correctly','Translated Exercise E item 2 correctly','Checked all answers against answer key']},
+
+// ── WEEK 3 ──
+{week:3,day:'Monday',badge:'월',dot:'dot-teal',xp:20,unit:'Unit 14–15',title:'Travel + weather vocab — cover & recall',short:'Travel + weather vocab — full cover-and-recall drill',intro:'Study both vocabulary sets. Do a full cover-and-recall drill, covering each column in turn.',
+vocab:[['여행','travel/trip','여행을 가려고 해요.',''],['제주도','Jeju Island','제주도에 가고 싶어요.',''],['바다','sea','바다가 예뻐요.',''],['호텔','hotel','호텔을 예약해요.',''],['예약하다','to reserve','비행기 표를 예약했어요.',''],['구경하다','to sightsee','시장을 구경해요.',''],['출발하다','to depart','10시에 출발해요.',''],['도착하다','to arrive','언제 도착해요?',''],['덥다','hot (weather)','오늘 날씨가 너무 더워요.','ㅂ'],['춥다','cold (weather)','밖이 정말 추워요.','ㅂ'],['따뜻하다','warm','봄이라서 따뜻해요.',''],['시원하다','cool/refreshing','바람이 시원해요.',''],['맑다','clear/sunny','하늘이 맑아요.','']],
+dial:{t:'여행 계획 — travel plans',l:[{s:'A',k:'이번 방학에 어디에 가려고 해요?',e:'Where are you planning to go this vacation?'},{s:'B',k:'제주도에 가려고 해요. 바다가 보고 싶어요.',e:"I'm planning to go to Jeju. I want to see the sea."},{s:'A',k:'호텔은 예약했어요?',e:'Did you reserve a hotel?'},{s:'B',k:'네, 어제 예약했어요. 빨리 출발하고 싶어요!',e:'Yes, I reserved it yesterday. I want to leave soon!'}]},
+recall:[{p:'여행',r:'travel'},{p:'to reserve',r:'예약하다'},{p:'hot (irreg)',r:'덥다'},{p:'to arrive',r:'도착하다'},{p:'sightsee',r:'구경하다'},{p:'cold (irreg)',r:'춥다'},{p:'제주도',r:'Jeju Island'},{p:'cool/refreshing',r:'시원하다'}],
+checks:['Recalled all travel vocabulary','Recalled all weather vocabulary','Identified ㅂ-irregular weather words','Read travel dialogue aloud twice']},
+
+{week:3,day:'Tuesday',badge:'화',dot:'dot-blue',xp:30,unit:'Unit 15',title:'-(으)려고 하다 + -고 + -아/어서',short:'-(으)려고 하다 + -고 + -아/어서 — conjugation chart',intro:'Three key connective patterns. Complete conjugation chart rows and write example sentences.',
+vocab:[['-(으)려고 하다','plan to V','제주도에 가려고 해요.','pattern'],['-고 (나열)','and (listing)','친구를 만나고 영화를 봤어요.','pattern'],['-아/어서 (이유)','because (reason)','날씨가 좋아서 공원에 가요.','pattern'],['-아/어서 (순서)','and then (sequence)','시장에 가서 과일을 샀어요.','pattern'],['가다 + 려고','plan to go','가려고 해요','conj'],['먹다 + 려고','plan to eat','먹으려고 해요','conj']],
+dial:{t:'여행 계획 — combining patterns',l:[{s:'A',k:'이번 주말에 뭐 하려고 해요?',e:'What are you planning to do this weekend?'},{s:'B',k:'친구를 만나고 같이 영화를 보려고 해요.',e:"I'm planning to meet a friend and watch a movie together."},{s:'A',k:'어디에서 만나요?',e:'Where are you meeting?'},{s:'B',k:'날씨가 좋아서 공원 앞에서 만나려고 해요.',e:"Since the weather is nice, we're planning to meet in front of the park."}]},
+recall:[{p:'plan to go',r:'가려고 해요'},{p:'plan to eat',r:'먹으려고 해요'},{p:'met and watched',r:'만나고 봤어요'},{p:'because weather is nice',r:'날씨가 좋아서'},{p:'went and bought',r:'가서 샀어요'},{p:'plan to study',r:'공부하려고 해요'}],
+checks:['Understood -(으)려고 하다 rule','Understood -고 for listing actions','Understood -아/어서 for reason vs sequence','Wrote 2 sentences with each pattern']},
+
+{week:3,day:'Wednesday',badge:'수',dot:'dot-amber',xp:20,unit:'Unit 16',title:'Dialogues 1 & 3 — 날씨 (weather)',short:'Dialogues 1 & 3 (날씨) — substitute your city; record yourself',intro:'Read both dialogues. Then substitute Seoul with your own city and your favourite season.',
+vocab:[['사계절','four seasons','한국은 사계절이 있어요.',''],['봄','spring','봄에는 꽃이 피어요.',''],['여름','summer','여름이 제일 더워요.',''],['가을','autumn','가을은 시원하고 좋아요.',''],['겨울','winter','겨울에 눈이 와요.',''],['단풍','autumn leaves','가을 단풍이 예뻐요.',''],['스키를 타다','to ski','겨울에 스키를 탈 수 있어요.','']],
+dial:{t:'한국의 계절 — Korean seasons (Dialogue 3)',l:[{s:'마크',k:'한국은 사계절이 있지요?',e:'Korea has four seasons, right?'},{s:'수진',k:"네, 봄, 여름, 가을, 겨울이 있어요.",e:"Yes, there's spring, summer, autumn, and winter."},{s:'마크',k:"제일 좋아하는 계절이 뭐예요?",e:"What's your favourite season?"},{s:'수진',k:"저는 가을을 좋아해요. 시원하고 단풍이 예뻐요.",e:"I like autumn. It's cool and the leaves are beautiful."},{s:'마크',k:"저는 겨울이 좋아요. 눈이 오면 스키를 탈 수 있어요.",e:"I like winter. When it snows we can ski."},{s:'수진',k:"아, 그래요? 같이 스키장에 가요!",e:"Oh really? Let's go to the ski resort together!"}]},
+recall:[{p:'사계절',r:'four seasons'},{p:'spring',r:'봄'},{p:'autumn leaves',r:'단풍'},{p:'winter',r:'겨울'},{p:'summer',r:'여름'},{p:'to ski',r:'스키를 타다'}],
+checks:['Read Dialogue 1 aloud (both roles)','Read Dialogue 3 aloud (both roles)','Substituted own city and season','Spoke the substituted version aloud (recorded if possible)']},
+
+{week:3,day:'Thursday',badge:'목',dot:'dot-blue',xp:25,unit:'Unit 16',title:'-(으)니까 vs -아/어서 contrast',short:'-(으)니까 vs -아/어서 — write 4 contrast sentences',intro:'Both mean "because" but behave differently. Study the contrast and write sentences showing when each is used.',
+vocab:[['-(으)니까','because/since (+command)','날씨가 좋으니까 산책해요.','pattern'],['-아/어서','because/so (+result)','날씨가 좋아서 공원에 가요.','pattern'],['규칙: -(으)니까','use before commands/suggestions','비가 오니까 우산을 가져가세요.','rule'],['규칙: -아/어서','no tense on first verb','배가 고파서 밥을 먹었어요.','rule'],['피곤하다','to be tired','피곤해서 집에 있어요.',''],['바쁘다','to be busy','바쁘니까 나중에 해요.','ㅡ']],
+dial:{t:'이유 말하기 — giving reasons',l:[{s:'A',k:'왜 공원에 안 가요?',e:"Why aren't you going to the park?"},{s:'B',k:'피곤해서 집에 있으려고 해요.',e:"I'm tired so I'm planning to stay home."},{s:'A',k:'날씨가 좋으니까 잠깐만 나가요.',e:"Since the weather is nice, let's go out for a bit."},{s:'B',k:'알겠어요. 그럼 30분만요!',e:'Okay. But only 30 minutes!'}]},
+recall:[{p:'since weather is nice (→ command)',r:'날씨가 좋으니까'},{p:'because tired (→ result)',r:'피곤해서'},{p:"since it's raining (→ take umbrella)",r:'비가 오니까'},{p:'because busy',r:'바빠서'},{p:'because hungry (→ ate)',r:'배가 고파서'},{p:'since late (→ hurry)',r:'늦으니까'}],
+checks:['Understood -(으)니까 is for commands/proposals','Understood -아/어서 cannot carry its own tense','Wrote 2 sentences with -(으)니까','Wrote 2 sentences with -아/어서']},
+
+{week:3,day:'Friday',badge:'금',dot:'dot-teal',xp:30,unit:'Unit 16',title:'ㅂ 불규칙 & ㅡ 탈락 full drill',short:'ㅂ 불규칙 & ㅡ 탈락 irregular drills — all examples',intro:'Drill all ㅂ and ㅡ irregular verbs/adjectives from section 3.2. Conjugate in all three tenses.',
+vocab:[['덥다 → 더워요','hot (ㅂ irreg)','오늘 더워요.','ㅂ'],['춥다 → 추워요','cold (ㅂ irreg)','겨울이 추워요.','ㅂ'],['가깝다 → 가까워요','near (ㅂ irreg)','학교가 가까워요.','ㅂ'],['맵다 → 매워요','spicy (ㅂ irreg)','이 음식이 매워요.','ㅂ'],['싱겁다 → 싱거워요','bland (ㅂ irreg)','국이 싱거워요.','ㅂ'],['바쁘다 → 바빠요','busy (ㅡ drop)','요즘 바빠요.','ㅡ'],['예쁘다 → 예뻐요','pretty (ㅡ drop)','꽃이 예뻐요.','ㅡ'],['크다 → 커요','big (ㅡ drop)','가방이 커요.','ㅡ'],['쓰다 → 써요','to write (ㅡ drop)','편지를 써요.','ㅡ']],
+dial:{t:'날씨 묘사 — describing weather',l:[{s:'A',k:'오늘 날씨가 어때요?',e:"How's the weather today?"},{s:'B',k:"너무 더워요. 가깝지만 나가기 싫어요.",e:"It's too hot. Even though it's close I don't want to go out."},{s:'A',k:"맞아요. 저도 요즘 너무 바빠서 더 피곤해요.",e:"I know. I'm so busy lately, so I'm even more tired."}]},
+recall:[{p:'덥다 → present',r:'더워요'},{p:'춥다 → past',r:'추웠어요'},{p:'가깝다 → present',r:'가까워요'},{p:'바쁘다 → present',r:'바빠요'},{p:'예쁘다 → past',r:'예뻤어요'},{p:'크다 → present',r:'커요'},{p:'맵다 → present',r:'매워요'},{p:'쓰다 → present',r:'써요'}],
+checks:['Drilled all 5 ㅂ-irregular words','Drilled all 4 ㅡ-drop words','Conjugated each in present, past, future','Wrote 3 sentences using irregular adjectives']},
+
+{week:3,day:'Saturday',badge:'토',dot:'dot-pink',xp:30,unit:'Unit 14–16',title:'Exercise E — full translation (6 sentences)',short:'Exercise E full translation (6 sentences) + check answer key',intro:'Translate all 6 sentences from Exercise E. Use section 7 to check your answers.',
+vocab:[['E-1','날씨가 좋으니까 공원에 가요.','The weather is nice so let\'s go to the park.','answer'],['E-2','저녁에 김치찌개를 먹고 싶어요.','I want to eat kimchi stew for dinner.','answer'],['E-3','비가 오니까 우산을 가지고 가세요.','It\'s raining so take an umbrella.','answer'],['E-4','저는 한국 음식을 조금 만들 수 있어요.','I can cook Korean food a little.','answer'],['E-5','다음 주말에 제주도에 여행을 가려고 해요.','I plan to travel to Jeju next weekend.','answer'],['E-6','저는 책을 읽는 것하고 영화를 보는 것을 좋아해요.','I like reading books and watching movies.','answer']],
+dial:{t:'Self-check — key sentences',l:[{s:'E-3',k:'비가 오니까 우산을 가지고 가세요.',e:"It's raining so please take an umbrella."},{s:'E-5',k:'다음 주말에 제주도에 여행을 가려고 해요.',e:'I plan to travel to Jeju next weekend.'},{s:'E-6',k:'저는 책을 읽는 것하고 영화를 보는 것을 좋아해요.',e:'I like reading books and watching movies.'}]},
+recall:[{p:'weather is nice so... (command)',r:'날씨가 좋으니까'},{p:'I want to eat dinner',r:'저녁에 먹고 싶어요'},{p:"it's raining so...",r:'비가 오니까'},{p:'I can make a little',r:'조금 만들 수 있어요'},{p:'I plan to travel',r:'여행을 가려고 해요'},{p:'I like reading',r:'읽는 것을 좋아해요'}],
+checks:['Translated all 6 sentences independently','Checked every answer against section 7','Identified and understood any mistakes','Can explain which grammar pattern each uses']},
+
+// ── WEEK 4 ──
+{week:4,day:'Monday',badge:'월',dot:'dot-teal',xp:25,unit:'Unit 16',title:'Hobbies vocab — -는 것을 좋아하다',short:'Hobbies vocab — write -는 것을 좋아하다 per hobby',intro:'Study all hobby vocabulary. For each hobby verb write a sentence with -는 것을 좋아하다.',
+vocab:[['취미','hobby','취미가 뭐예요?',''],['운동','exercise/sports','저는 운동을 좋아해요.',''],['축구','soccer','친구하고 축구를 해요.',''],['농구','basketball','주말에 농구를 해요.',''],['수영','swimming','여름에 수영을 해요.',''],['등산','hiking','가을에 등산을 가요.',''],['그림을 그리다','to draw','그림 그리는 것을 좋아해요.',''],['노래를 부르다','to sing','노래방에서 노래를 불러요.','르'],['기타를 치다','to play guitar','기타를 칠 수 있어요.',''],['게임을 하다','to play games','게임을 자주 해요.',''],['영화를 보다','to watch movies','주말에 영화를 봐요.',''],['책을 읽다','to read a book','책 읽는 것이 재미있어요.',''],['요리하다','to cook','요리하는 것을 좋아해요.','']],
+dial:{t:'취미 이야기 — talking about hobbies',l:[{s:'A',k:'취미가 뭐예요?',e:"What's your hobby?"},{s:'B',k:'저는 영화를 보는 것을 좋아해요. 주말마다 봐요.',e:'I like watching movies. I watch every weekend.'},{s:'A',k:'무슨 영화를 좋아해요?',e:'What kind of movies do you like?'},{s:'B',k:'한국 영화를 좋아해요. 그림을 그리는 것도 좋아해요.',e:'I like Korean movies. I also like drawing.'}]},
+recall:[{p:'취미',r:'hobby'},{p:'to sing',r:'노래를 부르다'},{p:'I like cooking',r:'요리하는 것을 좋아해요'},{p:'hiking',r:'등산'},{p:'I like reading',r:'책을 읽는 것을 좋아해요'},{p:'to draw',r:'그림을 그리다'},{p:'swimming',r:'수영'},{p:'I like playing games',r:'게임을 하는 것을 좋아해요'}],
+checks:['Recalled all 13 hobby words','Wrote a -는 것을 좋아하다 sentence per hobby','Noted 르-irregular word (부르다)','Read dialogue aloud twice']},
+
+{week:4,day:'Tuesday',badge:'화',dot:'dot-amber',xp:25,unit:'Unit 16',title:'Dialogues 4 & 5 — 취미 (hobbies)',short:'Dialogues 4 & 5 (취미) — speak, swap roles, improvise new sport',intro:'Read both hobby dialogues. Then improvise a new version with a different sport or hobby.',
+vocab:[['자주','often/frequently','게임을 자주 해요.',''],['가끔','sometimes','저도 가끔 해요.',''],['요즘','lately/these days','요즘 뭘 배워요?',''],['잘 못 치다','cannot play well','잘 못 쳐요.','phrase'],['실내 코트','indoor court','실내 코트에 가요.',''],['다음 달','next month','다음 달에 제주도에 가려고 해요.','']],
+dial:{t:'테니스를 칠 수 있어요? (Dialogue 5)',l:[{s:'루카',k:'민지 씨, 테니스를 칠 수 있어요?',e:'Minji, can you play tennis?'},{s:'민지',k:'조금 칠 수 있어요. 그런데 잘 못 쳐요.',e:"I can play a little, but not very well."},{s:'루카',k:'저도요. 우리 토요일에 같이 칠까요?',e:'Me too. Shall we play together on Saturday?'},{s:'민지',k:'좋아요. 그런데 비가 오면 어떻게 해요?',e:'Sounds good. But what if it rains?'},{s:'루카',k:"그럼 실내 코트에 가요. 역 근처에 있어요.",e:"Then we go to the indoor court. It's near the station."},{s:'민지',k:"아, 좋네요. 몇 시에 만날까요?",e:"Oh nice. What time shall we meet?"},{s:'루카',k:"오후 두 시는 어때요?",e:"How about 2pm?"},{s:'민지',k:"네, 그때 만나요.",e:"Okay, see you then."}]},
+recall:[{p:'자주',r:'often'},{p:'sometimes',r:'가끔'},{p:'lately',r:'요즘'},{p:"can't play well",r:'잘 못 쳐요'},{p:'indoor court',r:'실내 코트'},{p:'next month',r:'다음 달'}],
+checks:['Read Dialogue 4 aloud (both roles)','Read Dialogue 5 aloud (both roles)','Improvised dialogue with different sport','Used -(으)ㄹ까요? for proposals']},
+
+{week:4,day:'Wednesday',badge:'수',dot:'dot-blue',xp:30,unit:'All',title:'ㄷ 불규칙 & 르 불규칙 full drill',short:'ㄷ 불규칙 & 르 불규칙 — full conjugation drill',intro:'Drill ㄷ and 르 irregular verbs completely. Conjugate in all three tenses. Note the regular ㄷ verbs that do NOT change.',
+vocab:[['듣다 → 들어요','to listen (ㄷ irreg)','음악을 들어요.','ㄷ'],['걷다 → 걸어요','to walk (ㄷ irreg)','매일 걸어요.','ㄷ'],['묻다 → 물어요','to ask (ㄷ irreg)','길을 물어요.','ㄷ'],['부르다 → 불러요','to sing/call (르 irreg)','노래를 불러요.','르'],['다르다 → 달라요','to be different (르 irreg)','생각이 달라요.','르'],['모르다 → 몰라요','to not know (르 irreg)','저는 몰라요.','르'],['빠르다 → 빨라요','to be fast (르 irreg)','지하철이 빨라요.','르'],['받다 (regular!)','to receive','편지를 받아요.',''],['입다 (regular!)','to wear','코트를 입어요.','']],
+dial:{t:'불규칙 활용 — using irregular verbs',l:[{s:'A',k:'이 노래 알아요? 부를 수 있어요?',e:'Do you know this song? Can you sing it?'},{s:'B',k:'조금 들어봤어요. 그런데 가사를 몰라요.',e:"I've heard it a little. But I don't know the lyrics."},{s:'A',k:"가르쳐 드릴게요. 이 버전이 원래 것하고 달라요.",e:"I'll teach you. This version is different from the original."}]},
+recall:[{p:'듣다 → present',r:'들어요'},{p:'걷다 → past',r:'걸었어요'},{p:'부르다 → present',r:'불러요'},{p:'모르다 → present',r:'몰라요'},{p:'다르다 → present',r:'달라요'},{p:'빠르다 → present',r:'빨라요'},{p:'받다 → present (regular!)',r:'받아요'},{p:'묻다 → present',r:'물어요'}],
+checks:['Drilled all 3 ㄷ-irregular verbs','Drilled all 4 르-irregular verbs','Conjugated each in all three tenses','Distinguished regular ㄷ from irregular ㄷ']},
+
+{week:4,day:'Thursday',badge:'목',dot:'dot-pink',xp:30,unit:'Unit 16',title:'Exercise D — full dialogue completion',short:'Exercise D full dialogue — write your own hobby version',intro:'Complete Exercise D, then write your own version substituting your real hobbies.',
+vocab:[['D answer','취미가 뭐예요?','What is your hobby?',''],['D answer','게임하는 것을 좋아해요.','I like playing games.',''],['D answer','얼마나 오랫동안 했어요?','How long have you been doing it?',''],['D answer','3년쯤 됐어요.','It\'s been about 3 years.',''],['D answer','지금은 조금 잘할 수 있어요.','Now I can do it fairly well.',''],['D answer','이번 주말에 같이 할까요?','Shall we do it together this weekend?','']],
+dial:{t:'Exercise D — hobby dialogue (sample answer)',l:[{s:'A',k:'안녕하세요. 자코브 씨, 취미가 뭐예요?',e:'Hello Jacob. What are your hobbies?'},{s:'B',k:'저는 게임하는 것을 좋아해요.',e:'I like playing games.'},{s:'A',k:'와, 재미있겠어요. 얼마나 오랫동안 했어요?',e:'Wow, sounds fun. How long have you been doing it?'},{s:'B',k:'3년쯤 됐어요. 지금은 조금 잘할 수 있어요.',e:'About 3 years. Now I can do it fairly well.'},{s:'A',k:'이번 주말에 같이 할까요?',e:'Shall we do it together this weekend?'},{s:'B',k:'좋아요. 그럼 토요일 오후 두 시에 만나요.',e:"Sure. Let's meet Saturday at 2pm."}]},
+recall:[{p:"What's your hobby?",r:'취미가 뭐예요?'},{p:'I like playing games',r:'게임하는 것을 좋아해요'},{p:'how long?',r:'얼마나 오랫동안?'},{p:'about 3 years',r:'3년쯤 됐어요'},{p:'shall we do it?',r:'같이 할까요?'},{p:'I can do it fairly well',r:'조금 잘할 수 있어요'}],
+checks:['Completed Exercise D with correct answers','Checked answers against section 7','Wrote own version substituting real hobbies','Used at least 3 grammar patterns from section 3']},
+
+{week:4,day:'Friday',badge:'금',dot:'dot-pink',xp:35,unit:'All',title:'Exercise F — 5–7 sentence writing task',short:'Exercise F — 5–7 sentences, 3+ grammar patterns',intro:'Write 5–7 sentences about your favourite season and a hobby you do in it. Use at least 3 grammar patterns from section 3.',
+vocab:[['must use: -고 싶다','I want to V','여름에 수영을 하고 싶어요.','✓'],['must use: -(으)려고 하다','plan to','이번 여름에 제주도에 가려고 해요.','✓'],['must use: -아/어서 or -(으)니까','because','날씨가 좋으니까 나가요.','✓'],['bonus: -는 것을 좋아하다','I like V-ing','수영하는 것을 좋아해요.','★'],['bonus: -(으)ㄹ 수 있다','can V','기타를 칠 수 있어요.','★']],
+dial:{t:'Exercise F — sample answer',l:[{s:'①',k:'저는 여름을 제일 좋아해요.',e:'I like summer the most.'},{s:'②',k:'날씨가 덥지만 수영하는 것을 좋아해요.',e:"It's hot but I like swimming."},{s:'③',k:'여름에는 친구들하고 바다에 가고 싶어요.',e:'In summer I want to go to the sea with friends.'},{s:'④',k:'날씨가 좋으니까 자전거도 탈 수 있어요.',e:'Since the weather is nice, we can also ride bikes.'},{s:'⑤',k:'이번 여름에는 제주도에 여행을 가려고 해요.',e:'I plan to travel to Jeju this summer.'}]},
+recall:[{p:'I like summer most',r:'여름을 제일 좋아해요'},{p:'I like swimming',r:'수영하는 것을 좋아해요'},{p:'I want to go to the sea',r:'바다에 가고 싶어요'},{p:'since weather is nice',r:'날씨가 좋으니까'},{p:'I plan to travel',r:'여행을 가려고 해요'},{p:'can also ride bikes',r:'자전거도 탈 수 있어요'}],
+checks:['Wrote 5+ sentences about favourite season','Used -고 싶다 correctly','Used -(으)려고 하다 correctly','Used -아/어서 or -(으)니까 correctly','Used a bonus grammar pattern']},
+
+{week:4,day:'Saturday',badge:'토',dot:'dot-pink',xp:50,unit:'All',title:'BOSS: 10-min spoken monologue',short:'BOSS challenge: 10-min spoken monologue — all 8 themes',intro:'Final challenge! Speak for 10 minutes covering all 8 themes. Record yourself if you can.',
+vocab:[['Theme 1: 음식','Food','What food do you like? What do you want to eat?',''],['Theme 2: 가족','Family','How many people? What do they do?',''],['Theme 3: 모임','Abilities','What can/cannot you do?',''],['Theme 4: 쇼핑','Shopping','Describe a recent shopping experience.',''],['Theme 5: 위치','Location','Describe where you live and your daily route.',''],['Theme 6: 여행','Travel','Where do you want to travel and why?',''],['Theme 7: 날씨','Weather','Describe today and your favourite season.',''],['Theme 8: 취미','Hobbies','Talk about your hobbies and abilities.','']],
+dial:{t:'Boss monologue — starter phrases',l:[{s:'시작',k:'안녕하세요. 제 이름은 ___예요.',e:'Hello. My name is ___.'},{s:'음식',k:'저는 한국 음식을 정말 좋아해요. 특히 비빔밥을 먹고 싶어요.',e:'I really like Korean food. Especially I want to eat bibimbap.'},{s:'취미',k:'제 취미는 ___ 하는 것이에요. 매주 ___해요.',e:'My hobby is ___. I do it every week.'},{s:'여행',k:'다음 방학에 ___에 여행을 가려고 해요.',e:'I plan to travel to ___ next vacation.'},{s:'마무리',k:'한국어를 더 잘 말할 수 있도록 열심히 공부할게요!',e:"I'll study hard to be able to speak Korean better!"}]},
+recall:[{p:'Theme 1 — food',r:'음식 · 맛'},{p:'Theme 2 — family',r:'가족'},{p:'Theme 3 — abilities',r:'모임 · -(으)ㄹ 수 있다'},{p:'Theme 4 — shopping',r:'쇼핑'},{p:'Theme 5 — location',r:'위치 · 교통'},{p:'Theme 6 — travel',r:'여행'},{p:'Theme 7 — weather',r:'날씨 · 계절'},{p:'Theme 8 — hobbies',r:'취미 · 여가'}],
+checks:['Spoke for 10 minutes (or wrote 200+ words)','Covered all 8 themes','Used 5+ grammar patterns from section 3','Recorded yourself or spoke to a partner','🎉 Completed the full 4-week plan!']}
 ];
 
-const checkItems = [
-  "I can read all 13 words aloud without hesitation",
-  "I know which words have irregular conjugation",
-  "I read the dialogue aloud twice (both roles)",
-  "I recalled at least 10 of 13 hidden answers",
-  "I used 배고파요 and 배불러요 in my own sentences",
-];
-
-function buildRecall() {
-  const grid = document.getElementById('recall-grid');
-  if (grid.children.length > 0) return;
-  recallData.forEach(d => {
-    const el = document.createElement('div');
-    el.className = 'recall-card';
-    el.innerHTML = `<div class="rc-prompt">${d.prompt}</div><div class="rc-reveal">${d.reveal}</div><div class="rc-hint">tap to reveal</div>`;
-    el.onclick = () => {
-      el.classList.toggle('revealed');
-      el.querySelector('.rc-hint').textContent = el.classList.contains('revealed') ? 'tap to hide' : 'tap to reveal';
-    };
-    grid.appendChild(el);
-  });
+/* ─── STATE ─── */
+let S={currentDayIdx:0,completedDays:[],xp:0,streak:0,lastDate:null,activeWeek:0};
+function save(){localStorage.setItem('sejong_v2',JSON.stringify(S))}
+function load(){
+  const r=localStorage.getItem('sejong_v2');
+  if(r){try{S=Object.assign(S,JSON.parse(r))}catch(e){}}
+  // legacy migration
+  const lx=localStorage.getItem('sejong_xp');
+  if(lx&&S.xp===0){S.xp=parseInt(lx)||0;S.streak=parseInt(localStorage.getItem('sejong_streak')||'0');save()}
 }
 
-function buildChecklist() {
-  const cl = document.getElementById('checklist');
-  if (cl.children.length > 0) return;
-  checkItems.forEach(t => {
-    const el = document.createElement('div');
-    el.className = 'check-row';
-    el.innerHTML = `<div class="check-box"></div><span>${t}</span>`;
-    el.onclick = () => { el.classList.toggle('checked'); saveProgress(); };
-    cl.appendChild(el);
-  });
+/* ─── RENDER ─── */
+function render(){
+  renderXP();renderGrid();renderSwitcher();renderLesson();
 }
-
-let currentStep = 0;
-const stepIds = ['step-learn', 'step-speak', 'step-recall', 'step-done'];
-const tabs = document.querySelectorAll('.tab-btn');
-
-function advanceStep(panelId, idx) {
-  stepIds.forEach(id => { document.getElementById(id).className = 'step-panel'; });
-  document.getElementById(panelId).className = 'step-panel visible';
-  tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
-  currentStep = idx;
-  if (panelId === 'step-recall') buildRecall();
-  if (panelId === 'step-done') { buildChecklist(); saveProgress(); }
-  document.getElementById('lesson').scrollIntoView({ behavior: 'smooth', block: 'start' });
+function renderXP(){
+  const x=S.xp,d=S.completedDays.length;
+  document.getElementById('xp-display').textContent=x;
+  document.getElementById('pct-label').textContent=Math.round(x/10)+'%';
+  document.getElementById('main-bar').style.width=Math.min(x/10,100)+'%';
+  document.getElementById('streak-badge').textContent=S.streak+'-day streak';
+  document.getElementById('hero-xp').textContent=x;
+  document.getElementById('hero-days').textContent=d;
 }
-
-function switchTab(btn, panelId) {
-  const idx = Array.from(tabs).indexOf(btn);
-  advanceStep(panelId, idx);
-}
-
-function openWeek(n) {
-  document.querySelectorAll('.week-card').forEach((c, i) => {
-    c.classList.toggle('active-week', i === n - 1);
-  });
-}
-
-// ─── LOCAL STORAGE PROGRESS ───
-function saveProgress() {
-  const xp = parseInt(localStorage.getItem('sejong_xp') || '0');
-  const streak = parseInt(localStorage.getItem('sejong_streak') || '0');
-  updateXP(xp, streak);
-}
-
-function updateXP(xp, streak) {
-  document.getElementById('xp-display').textContent = xp;
-  document.getElementById('pct-label').textContent = Math.round(xp / 10) + '%';
-  document.getElementById('main-bar').style.width = Math.min(xp / 10, 100) + '%';
-  document.getElementById('streak-badge').textContent = streak + '-day streak';
-}
-
-function loadProgress() {
-  const xp = parseInt(localStorage.getItem('sejong_xp') || '0');
-  const streak = parseInt(localStorage.getItem('sejong_streak') || '0');
-  updateXP(xp, streak);
-}
-
-// XP award on lesson complete (once per day)
-function awardXP() {
-  const today = new Date().toDateString();
-  const last = localStorage.getItem('sejong_last_day');
-  let xp = parseInt(localStorage.getItem('sejong_xp') || '0');
-  let streak = parseInt(localStorage.getItem('sejong_streak') || '0');
-  if (last !== today) {
-    xp = Math.min(xp + 20, 1000);
-    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-    streak = last === yesterday.toDateString() ? streak + 1 : 1;
-    localStorage.setItem('sejong_xp', xp);
-    localStorage.setItem('sejong_streak', streak);
-    localStorage.setItem('sejong_last_day', today);
-    updateXP(xp, streak);
+function renderGrid(){
+  const grid=document.getElementById('day-grid');
+  const ws=S.activeWeek*6;
+  grid.innerHTML='';
+  for(let i=0;i<6;i++){
+    const idx=ws+i,d=DAYS[idx];
+    const isCur=idx===S.currentDayIdx,isDone=S.completedDays.includes(idx);
+    const cell=document.createElement('div');
+    cell.className='day-cell'+(isCur?' is-current':'')+(isDone?' is-done':'');
+    cell.onclick=()=>{S.currentDayIdx=idx;S.activeWeek=Math.floor(idx/6);save();render();document.getElementById('lesson').scrollIntoView({behavior:'smooth'})};
+    cell.innerHTML=`<div class="dc-day">${d.day}</div><div class="dc-dot ${d.dot}"></div><div class="dc-task">${d.short}</div><div class="dc-xp">+${d.xp} XP</div>${isCur?'<div class="dc-curr-tag">▶ current</div>':''}`;
+    grid.appendChild(cell);
   }
 }
+function renderSwitcher(){
+  const d=DAYS[S.currentDayIdx],isDone=S.completedDays.includes(S.currentDayIdx);
+  document.getElementById('sw-label').textContent=`Week ${d.week} · ${d.day}`;
+  document.getElementById('sw-status').textContent=isDone?'✓ completed':'not yet completed';
+  document.getElementById('btn-done').style.display=isDone?'none':'';
+  document.getElementById('btn-undo').style.display=isDone?'':'none';
+}
+function renderLesson(){
+  const d=DAYS[S.currentDayIdx],isDone=S.completedDays.includes(S.currentDayIdx);
+  document.getElementById('lesson-sec-title').textContent=`Week ${d.week}, ${d.day} — ${d.title}`;
+  document.getElementById('lh-badge').textContent=d.badge;
+  document.getElementById('lh-day').textContent=`Week ${d.week} · ${d.day} · ${d.unit}`;
+  document.getElementById('lh-title').textContent=d.title;
+  document.getElementById('lh-dur').textContent=`Estimated time: 40–50 min  ·  +${d.xp} XP`;
+  // XP bar
+  const xb=document.getElementById('xp-bar-msg');
+  xb.textContent=isDone?`✓ Day complete — +${d.xp} XP already earned`:`Complete all steps then mark done to earn +${d.xp} XP`;
+  xb.className='xp-toast-bar '+(isDone?'done':'pending');
+  // Learn intro
+  document.getElementById('learn-intro').innerHTML=d.intro;
+  // Vocab table
+  let t='<table class="vocab-table"><thead><tr><th>Korean</th><th>English</th><th>Example / Note</th></tr></thead><tbody>';
+  d.vocab.forEach(r=>{
+    const irr=r[3]?`<span class="irreg">${r[3]}</span>`:'';
+    t+=`<tr><td><span class="vkr">${r[0]}</span>${irr}</td><td>${r[1]}</td><td><span class="vex">${r[2]}</span></td></tr>`;
+  });
+  t+='</tbody></table>';
+  document.getElementById('learn-content').innerHTML=t;
+  // Dialogue
+  let dl=`<div class="dial-wrap"><div class="dial-title">${d.dial.t}</div>`;
+  d.dial.l.forEach(l=>{dl+=`<div class="dl"><span class="dl-spk">${l.s}</span><div><div class="dl-kr">${l.k}</div><div class="dl-en">${l.e}</div></div></div>`});
+  dl+='</div>';
+  document.getElementById('speak-content').innerHTML=dl;
+  // Recall
+  const rg=document.getElementById('recall-grid');rg.innerHTML='';
+  d.recall.forEach(r=>{
+    const el=document.createElement('div');el.className='rc';
+    el.innerHTML=`<div class="rcp">${r.p}</div><div class="rcr">${r.r}</div><div class="rch">tap to reveal</div>`;
+    el.onclick=()=>{el.classList.toggle('revealed');el.querySelector('.rch').textContent=el.classList.contains('revealed')?'tap to hide':'tap to reveal'};
+    rg.appendChild(el);
+  });
+  // Checklist
+  const cl=document.getElementById('checklist');cl.innerHTML='';
+  d.checks.forEach(t=>{
+    const el=document.createElement('div');el.className='ck';
+    el.innerHTML=`<div class="ck-box"></div><span>${t}</span>`;
+    el.onclick=()=>el.classList.toggle('checked');
+    cl.appendChild(el);
+  });
+  // Reset to step 1
+  goStep('step-learn',0,false);
+}
 
-document.getElementById('step-done') && document.getElementById('step-done').addEventListener('DOMSubtreeModified', function once() {
-  awardXP();
-  this.removeEventListener('DOMSubtreeModified', once);
-});
+/* ─── ACTIONS ─── */
+function markDone(){
+  const idx=S.currentDayIdx;
+  if(S.completedDays.includes(idx))return;
+  S.completedDays.push(idx);
+  S.xp=Math.min(S.xp+DAYS[idx].xp,1000);
+  const today=new Date().toDateString();
+  if(S.lastDate!==today){
+    const yest=new Date();yest.setDate(yest.getDate()-1);
+    S.streak=S.lastDate===yest.toDateString()?S.streak+1:1;
+    S.lastDate=today;
+  }
+  if(idx<23){S.currentDayIdx=idx+1;S.activeWeek=Math.floor(S.currentDayIdx/6)}
+  save();render();switchWeek(S.activeWeek);
+  showToast(`+${DAYS[idx].xp} XP! ${idx<23?'Now on: Week '+DAYS[idx+1].week+' '+DAYS[idx+1].day:'🎉 4-week plan complete!'}`);
+}
+function markUndone(){
+  const idx=S.currentDayIdx;
+  S.completedDays=S.completedDays.filter(i=>i!==idx);
+  S.xp=Math.max(0,S.xp-DAYS[idx].xp);
+  save();render();showToast('Day unmarked — XP adjusted.');
+}
+function shiftDay(dir){
+  const n=S.currentDayIdx+dir;
+  if(n<0||n>23)return;
+  S.currentDayIdx=n;S.activeWeek=Math.floor(n/6);
+  save();render();switchWeek(S.activeWeek);
+  document.getElementById('lesson').scrollIntoView({behavior:'smooth'});
+}
+function switchWeek(idx){
+  S.activeWeek=idx;
+  document.querySelectorAll('.week-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  renderGrid();save();
+}
+function doReset(){
+  if(!confirm('Reset ALL progress? This cannot be undone.'))return;
+  S={currentDayIdx:0,completedDays:[],xp:0,streak:0,lastDate:null,activeWeek:0};
+  localStorage.removeItem('sejong_v2');localStorage.removeItem('sejong_xp');
+  localStorage.removeItem('sejong_streak');localStorage.removeItem('sejong_last_day');
+  render();switchWeek(0);showToast('Progress reset. Starting fresh!');
+}
 
-loadProgress();
+/* ─── LESSON STEPS ─── */
+const STEP_IDS=['step-learn','step-speak','step-recall','step-done'];
+const TABS=document.querySelectorAll('.tab-btn');
+function goStep(id,idx,scroll=true){
+  STEP_IDS.forEach(s=>{document.getElementById(s).className='step-panel'});
+  document.getElementById(id).className='step-panel visible';
+  TABS.forEach((t,i)=>t.classList.toggle('active',i===idx));
+  if(scroll)document.getElementById('lesson').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ─── TOAST ─── */
+let tt;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* ─── INIT ─── */
+load();render();switchWeek(S.activeWeek);
 </script>
 </body>
 </html>
